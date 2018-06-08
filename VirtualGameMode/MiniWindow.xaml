@@ -1,12 +1,12 @@
-﻿<Window x:Class="VirtualGameMode.MainWindow"
+﻿<Window x:Class="VirtualGameMode.MiniWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VirtualGameMode"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MiniWindow" Height="450" Width="300" AllowsTransparency="True" Background="Transparent" WindowStyle="None">
+    <Grid x:Name="root" Background="#88EEEEEE">
     </Grid>
 </Window>
