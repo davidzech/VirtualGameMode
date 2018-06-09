@@ -95,12 +95,14 @@ namespace VirtualGameMode
                     this.GameModeToggle.Content = "Game Mode is On";
                     this.GameModeToggle.Foreground = (Brush) FindResource("AccentColorBrush");
                     this.GameModeToggle.IsChecked = true;
+                    GameModeHook.InstallHook();
                 }
                 else
                 {
                     this.GameModeToggle.Content = "Game Mode is Off";
                     this.GameModeToggle.Foreground = (Brush) FindResource("TextBrush");
                     this.GameModeToggle.IsChecked = false;
+                    GameModeHook.RemoveHook();
                 }
             }
         }
@@ -109,12 +111,10 @@ namespace VirtualGameMode
         {
             if (!GameModeOn)
             {
-                GameModeHook.InstallHook();
                 GameModeOn = true;
             }
             else
             {
-                GameModeHook.RemoveHook();
                 GameModeOn = false;
             }
         }
