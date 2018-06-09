@@ -61,18 +61,6 @@ namespace VirtualGameMode.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Scope {
-            get {
-                return ((int)(this["Scope"]));
-            }
-            set {
-                this["Scope"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool LaunchOnStartup {
             get {
@@ -92,6 +80,42 @@ namespace VirtualGameMode.Properties {
             }
             set {
                 this["AutoGameMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ScopeWin {
+            get {
+                return ((int)(this["ScopeWin"]));
+            }
+            set {
+                this["ScopeWin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ScopeAltTab {
+            get {
+                return ((int)(this["ScopeAltTab"]));
+            }
+            set {
+                this["ScopeAltTab"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ScopeAltF4 {
+            get {
+                return ((int)(this["ScopeAltF4"]));
+            }
+            set {
+                this["ScopeAltF4"] = value;
             }
         }
     }

@@ -23,38 +23,101 @@ namespace VirtualGameMode.Views
         public Settings()
         {
             InitializeComponent();
-            switch (Properties.Settings.Default.Scope)
+            switch (Properties.Settings.Default.ScopeWin)
             {
                 case 0:
-                    AddedApp.IsChecked = true;
+                    AddedAppWin.IsChecked = true;
                     break;
                 case 1:
-                    FullScreen.IsChecked = true;
+                    FullScreenWin.IsChecked = true;
                     break;
                 case 2:
-                    Global.IsChecked = true;
+                    GlobalWin.IsChecked = true;
                     break;
             }
-        }
 
-        private void AddedApp_OnChecked(object sender, RoutedEventArgs e)
-        {
-                Properties.Settings.Default.Scope = 0;
-        }
+            switch (Properties.Settings.Default.ScopeAltTab)
+            {
+                case 0:
+                    AddedAppAltTab.IsChecked = true;
+                    break;
+                case 1:
+                    FullScreenAltTab.IsChecked = true;
+                    break;
+                case 2:
+                    GlobalWinAltTab.IsChecked = true;
+                    break;
+            }
 
-        private void FullScreen_OnChecked(object sender, RoutedEventArgs e)
-        {
-            Properties.Settings.Default.Scope = 1;
-        }
-
-        private void Global_OnChecked(object sender, RoutedEventArgs e)
-        {
-            Properties.Settings.Default.Scope = 2;
+            switch (Properties.Settings.Default.ScopeAltF4)
+            {
+                case 0:
+                    AddedAppAltF4.IsChecked = true;
+                    break;
+                case 1:
+                    FullScreenAltF4.IsChecked = true;
+                    break;
+                case 2:
+                    GlobalAltF4.IsChecked = true;
+                    break;
+            }
         }
 
         private void ToggleSwitch_OnChecked(object sender, RoutedEventArgs e)
         {
             StartupManager.SyncStartupKey();
         }
+
+        #region Windows Key Scope
+
+        private void AddedAppWin_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ScopeWin = 0;
+        }
+
+        private void FullScreenWin_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ScopeWin = 1;
+        }
+
+        private void GlobalWin_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ScopeWin = 2;
+        }
+        #endregion
+
+        #region AltTab Scope
+        private void AddedAppAltTab_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ScopeAltTab = 0;
+        }
+
+        private void FullScreenAltTab_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ScopeAltTab = 1;
+        }
+
+        private void GlobalWinAltTab_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ScopeAltTab = 2;
+        }
+        #endregion
+
+        #region AltF4 Scope
+        private void AddedAppAltF4_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ScopeAltF4 = 0;
+        }
+
+        private void FullScreenAltF4_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ScopeAltF4 = 1;
+        }
+
+        private void GlobalAltF4_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ScopeAltF4 = 2;
+        }
+        #endregion
     }
 }

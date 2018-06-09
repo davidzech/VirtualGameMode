@@ -55,27 +55,9 @@ namespace VirtualGameMode
                     break;
             }
             bool alt = _lAltPressed || _rAltPressed || Keyboard.GetKeyStates(Key.LeftAlt) == KeyStates.Down ||
-                       (Keyboard.GetKeyStates(Key.RightAlt) == KeyStates.Down);
+                       (Keyboard.GetKeyStates(Key.RightAlt) == KeyStates.Down);            
 
-            bool validScope;
-            switch (Properties.Settings.Default.Scope)
-            {
-                case 0:
-                    // applications
-                    validScope = false;
-                    break;
-                case 1:
-                    // fullscreen windows
-                    validScope = IsForegroundWindowFullScreen();
-                    break;
-                case 2:
-                    // global
-                    validScope = true;
-                    break;
-            }
-
-
-            if (Properties.Settings.Default.DisableAltF4)
+            if (Properties.Settings.Default.DisableAltF4 && IsValidScopeForSetting(Properties.Settings.Default.ScopeAltF4))
             {
                 if (kb.vkCode == VK.F4 && alt)
                 {
@@ -83,7 +65,7 @@ namespace VirtualGameMode
                 }
             }
 
-            if (Properties.Settings.Default.DisableAltTab)
+            if (Properties.Settings.Default.DisableAltTab && IsValidScopeForSetting(Properties.Settings.Default.ScopeAltTab))
             {
                 if (kb.vkCode == VK.Tab && alt)
                 {
@@ -91,7 +73,7 @@ namespace VirtualGameMode
                 }
             }
 
-            if (Properties.Settings.Default.DisableWinKey)
+            if (Properties.Settings.Default.DisableWinKey && IsValidScopeForSetting(Properties.Settings.Default.ScopeWin))
             {
                 if (kb.vkCode == VK.LWIN || kb.vkCode == VK.RWIN)
                 {
@@ -100,6 +82,23 @@ namespace VirtualGameMode
             }
 
             return Native.CallNextHookEx(0, nCode, new IntPtr(wParam), lParam);
+        }
+
+        private static bool IsValidScopeForSetting(int scope)
+        {
+            switch (scope)
+            {
+                case 0:
+                    // check app
+                    return false;                    
+                case 1:
+                    return IsForegroundWindowFullScreen();
+                case 2:
+                    return true;
+                default:
+                    // Log this
+                    return false;
+            }
         }
 
         private static bool IsForegroundWindowFullScreen()
