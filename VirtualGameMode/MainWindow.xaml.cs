@@ -82,10 +82,26 @@ namespace VirtualGameMode
             this.HamburgerMenu.Content = e.ClickedItem;
         }
 
+        private bool _gameModeOn = false;
         public bool GameModeOn
         {
-            get;
-            set;
+            get { return _gameModeOn; }
+            set
+            {
+                _gameModeOn = value;
+                if (value == true)
+                {
+                    this.GameModeToggle.Content = "Game Mode is On";
+                    this.GameModeToggle.Foreground = (Brush) FindResource("AccentColorBrush");
+                    this.GameModeToggle.IsChecked = true;
+                }
+                else
+                {
+                    this.GameModeToggle.Content = "Game Mode is Off";
+                    this.GameModeToggle.Foreground = (Brush) FindResource("TextBrush");
+                    this.GameModeToggle.IsChecked = false;
+                }
+            }
         }
 
         private void GameModeToggle_OnClick(object sender, RoutedEventArgs e)

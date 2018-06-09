@@ -26,8 +26,8 @@
     </mah:MetroWindow.WindowButtonCommands>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <Button x:Name="GameModeToggle" Content="Game Mode On/Off" Click="GameModeToggle_OnClick">
-            </Button>
+            <ToggleButton x:Name="GameModeToggle" Content="Game Mode is Off" Click="GameModeToggle_OnClick">
+            </ToggleButton>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <mah:MetroWindow.TitleTemplate>
