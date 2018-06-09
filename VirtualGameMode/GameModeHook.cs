@@ -13,9 +13,10 @@ namespace VirtualGameMode
     public static class GameModeHook
     {
         private static int _hook = 0;
+        private static Native.HookProc hookfn = new Native.HookProc(llKeyboardProc);
         public static void InstallHook()
         {
-            _hook = Native.SetWindowsHookEx(Native.WH_KEYBOARD_LL, new Native.HookProc(llKeyboardProc), IntPtr.Zero, 0);
+            _hook = Native.SetWindowsHookEx(Native.WH_KEYBOARD_LL, hookfn, IntPtr.Zero, 0);
         }
 
         private static bool lAltPressed = false, rAltPressed = false;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,16 +77,10 @@ namespace VirtualGameMode
             base.OnStateChanged(e);
         }
 
-
-        private void HamburgerMenu_OnItemClick(object sender, ItemClickEventArgs e)
-        {
-            this.HamburgerMenu.Content = e.ClickedItem;
-        }
-
         private bool _gameModeOn = false;
         public bool GameModeOn
         {
-            get { return _gameModeOn; }
+            get => _gameModeOn;
             set
             {
                 _gameModeOn = value;
@@ -115,6 +110,25 @@ namespace VirtualGameMode
             {
                 GameModeHook.RemoveHook();
                 GameModeOn = false;
+            }
+        }
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            GameModeHook.RemoveHook();
+            Properties.Settings.Default.Save();
+        }
+
+        private void HamburgerMenu_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
+        {
+            this.HamburgerMenu.Content = e.InvokedItem;
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (Properties.Settings.Default.AutoGameMode)
+            {
+                GameModeOn = true;
             }
         }
     }

@@ -9,7 +9,9 @@
          xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
          xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Height="450" Width="800" 
+        Height="620" Width="1000" 
+                 MinHeight="620"
+                 MinWidth="500"
                  WindowTitleBrush="{DynamicResource TransparentWhiteBrush}"
                  NonActiveWindowTitleBrush="{DynamicResource TransparentWhiteBrush}"
                  GlowBrush="{DynamicResource AccentColorBrush}"
@@ -20,7 +22,9 @@
                  Title="Virtual Game Mode"
                  WindowButtonCommandsOverlayBehavior="Always"
                  ShowDialogsOverTitleBar="False"
-                 TitlebarHeight="30">
+                 TitlebarHeight="30"
+                 Closing="MainWindow_OnClosing"
+                 Loaded="MainWindow_OnLoaded">
     <mah:MetroWindow.WindowButtonCommands>
         <mah:WindowButtonCommands Template="{DynamicResource MahApps.Metro.Templates.WindowButtonCommands.Win10}"  />
     </mah:MetroWindow.WindowButtonCommands>
@@ -51,6 +55,31 @@
             </TextBlock>
         </DataTemplate>
     </mah:MetroWindow.TitleTemplate>
+    <mah:MetroWindow.Resources>
+        <Style x:Key="HamburgerMenuCreatorsItemStyle"
+                   BasedOn="{StaticResource HamburgerMenuItemStyle}"
+                   TargetType="{x:Type ListBoxItem}">
+            <Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush" Value="Transparent" />
+            <Setter Property="mah:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource AccentBaseColorBrush}" />
+            <Setter Property="mah:ItemHelper.DisabledForegroundBrush" Value="{DynamicResource GrayNormalBrush}" />
+            <Setter Property="mah:ItemHelper.DisabledSelectedBackgroundBrush" Value="Transparent" />
+            <Setter Property="mah:ItemHelper.DisabledSelectedForegroundBrush" Value="{DynamicResource GrayNormalBrush}" />
+            <Setter Property="mah:ItemHelper.HoverBackgroundBrush" Value="{DynamicResource GrayBrush9}" />
+            <Setter Property="mah:ItemHelper.HoverSelectedBackgroundBrush" Value="{DynamicResource GrayBrush9}" />
+            <Setter Property="mah:ItemHelper.SelectedBackgroundBrush" Value="Transparent" />
+            <Setter Property="mah:ItemHelper.SelectedForegroundBrush" Value="{DynamicResource AccentBaseColorBrush}" />
+        </Style>
+
+        <Style x:Key="HamburgerMenuCreatorsStyle"
+                   BasedOn="{StaticResource {x:Type mah:HamburgerMenu}}"
+                   TargetType="{x:Type mah:HamburgerMenu}">
+            <Setter Property="ItemContainerStyle" Value="{StaticResource HamburgerMenuCreatorsItemStyle}" />
+            <Setter Property="OptionsItemContainerStyle" Value="{StaticResource HamburgerMenuCreatorsItemStyle}" />
+            <Setter Property="PaneBackground" Value="{DynamicResource WhiteBrush}" />
+            <Setter Property="PaneForeground" Value="{DynamicResource TextBrush}" />
+            <Setter Property="ShowSelectionIndicator" Value="True" />
+        </Style>
+    </mah:MetroWindow.Resources>
     <Grid Background="Transparent">
         <Grid.Resources>
             <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
@@ -99,8 +128,12 @@
                            ItemTemplate="{StaticResource MenuItemTemplate}"
                            OptionsItemTemplate="{StaticResource OptionsMenuItemTemplate}"
                            PaneBackground="Transparent"
-                           ContentTransition="Left" ItemClick="HamburgerMenu_OnItemClick"
-                           OpenPaneLength="200">
+                           ContentTransition="Left"
+                           ItemInvoked="HamburgerMenu_OnItemInvoked"
+                           OpenPaneLength="200"
+                           Style="{StaticResource HamburgerMenuCreatorsStyle}"
+                           ItemContainerStyle="{StaticResource HamburgerMenuCreatorsItemStyle}"
+                           SelectedIndex="0">
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Applications">
@@ -111,7 +144,7 @@
 
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Log">
                         <mah:HamburgerMenuGlyphItem.Tag>
-                            <views:Settings />
+                            <views:Applications></views:Applications>
                         </mah:HamburgerMenuGlyphItem.Tag>
                     </mah:HamburgerMenuGlyphItem>
 

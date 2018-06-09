@@ -13,5 +13,9 @@ namespace VirtualGameMode
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            this.ShutdownMode = ShutdownMode.OnMainWindowClose;
+        }
     }
 }
