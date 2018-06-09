@@ -31,11 +31,17 @@ namespace VirtualGameMode
         {
             InitializeComponent();
             this.DataContext = this;
-            trayIcon = new NotifyIcon()
+            using (var iconStream = Application
+                .GetResourceStream(new Uri("pack://application:,,,/VirtualGameMode;component/Resources/icon.ico"))
+                .Stream)
             {
-                Visible = true,
-                Icon = new System.Drawing.Icon("icon.ico")
-            };
+                trayIcon = new NotifyIcon()
+                {
+                    Visible = true,
+                    Icon = new System.Drawing.Icon(iconStream)
+                };
+            }
+
             trayIcon.DoubleClick += TrayIcon_DoubleClick;
             //WindowState = WindowState.Minimized;
             var mini = new MiniWindow();

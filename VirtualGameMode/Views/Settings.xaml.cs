@@ -51,5 +51,10 @@ namespace VirtualGameMode.Views
         {
             Properties.Settings.Default.Scope = 2;
         }
+
+        private void ToggleSwitch_OnChecked(object sender, RoutedEventArgs e)
+        {
+            StartupManager.SyncStartupKey();
+        }
     }
 }
