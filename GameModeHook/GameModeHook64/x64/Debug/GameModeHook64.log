@@ -1,0 +1,6 @@
+﻿  stdafx.cpp
+  dllmain.cpp
+  GameModeHook64.cpp
+  Generating Code...
+     Creating library C:\Users\david\source\repos\VirtualGameMode\\Build\Debug\GameModeHook64.lib and object C:\Users\david\source\repos\VirtualGameMode\\Build\Debug\GameModeHook64.exp
+  GameModeHook64.vcxproj -> C:\Users\david\source\repos\VirtualGameMode\\Build\Debug\GameModeHook64.dll

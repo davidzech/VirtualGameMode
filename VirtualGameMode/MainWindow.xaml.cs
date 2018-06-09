@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ControlzEx.Behaviors;
+using ControlzEx.Standard;
 using MahApps.Metro.Behaviours;
 using MahApps.Metro.Controls;
 using NotifyIcon = System.Windows.Forms.NotifyIcon;
@@ -28,22 +29,42 @@ namespace VirtualGameMode
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
             trayIcon = new NotifyIcon()
             {
                 Visible = true,
                 Icon = new System.Drawing.Icon("icon.ico")
-
             };
-
+            trayIcon.DoubleClick += TrayIcon_DoubleClick;
             //WindowState = WindowState.Minimized;
             var mini = new MiniWindow();
             //mini.Show();
 
         }
 
+        private void TrayIcon_DoubleClick(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = WindowState.Normal;
+        }
+
+        private void ReorderTemplates()
+        {
+            // reorder templates of the root Grid so we can extend view into titlebar
+            var titlebar = GetTemplateChild("PART_TitleBar") as UIElement;
+            var content = GetTemplateChild("PART_Content") as UIElement;
+            if (titlebar != null && titlebar.GetParentObject() is Grid parent)
+            {
+                var contentindex = parent.Children.IndexOf(content);
+                parent.Children.Remove(titlebar);
+                parent.Children.Insert(contentindex, titlebar);
+            }
+
+        }
+
         public override void OnApplyTemplate()
         {
-            //this.EnableBlur();
+            ReorderTemplates();
             base.OnApplyTemplate();
         }
 
@@ -55,23 +76,30 @@ namespace VirtualGameMode
             base.OnStateChanged(e);
         }
 
-        private IntPtr lib32, lib64;
-        private void InstallHooks()
-        {
-            lib32 = Native.LoadLibrary("GameModeHook32.dll");
-            lib64 = Native.LoadLibrary("GameModeHook64.dll");
-            var proc32 = Native.GetProcAddress(lib32, "llKeyboardHook32");
-            var proc64 = Native.GetProcAddress(lib64, "llKeyboardHook64");
-        }
-
-        private void RemoveHooks()
-        {
-
-        }
 
         private void HamburgerMenu_OnItemClick(object sender, ItemClickEventArgs e)
         {
             this.HamburgerMenu.Content = e.ClickedItem;
+        }
+
+        public bool GameModeOn
+        {
+            get;
+            set;
+        }
+
+        private void GameModeToggle_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (!GameModeOn)
+            {
+                GameModeHook.InstallHook();
+                GameModeOn = true;
+            }
+            else
+            {
+                GameModeHook.RemoveHook();
+                GameModeOn = false;
+            }
         }
     }
 }

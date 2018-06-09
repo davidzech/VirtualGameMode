@@ -9,14 +9,48 @@
          xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
          xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Height="450" Width="800"  WindowTitleBrush="{DynamicResource TransparentWhiteBrush}"
+        Height="450" Width="800" 
+                 WindowTitleBrush="{DynamicResource TransparentWhiteBrush}"
                  NonActiveWindowTitleBrush="{DynamicResource TransparentWhiteBrush}"
                  GlowBrush="{DynamicResource AccentColorBrush}"
                  BorderBrush="{DynamicResource AccentColorBrush}"
                  NonActiveGlowBrush="#3f3f46"
                  NonActiveBorderBrush="Transparent"
                  TitleCharacterCasing="Normal"
-                 Title="Virtual Game Mode">
+                 Title="Virtual Game Mode"
+                 WindowButtonCommandsOverlayBehavior="Always"
+                 ShowDialogsOverTitleBar="False"
+                 TitlebarHeight="30">
+    <mah:MetroWindow.WindowButtonCommands>
+        <mah:WindowButtonCommands Template="{DynamicResource MahApps.Metro.Templates.WindowButtonCommands.Win10}"  />
+    </mah:MetroWindow.WindowButtonCommands>
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button x:Name="GameModeToggle" Content="Game Mode On/Off" Click="GameModeToggle_OnClick">
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+    <mah:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <TextBlock
+                FontSize="16"
+                FontWeight="Light"
+                Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}" >
+                <TextBlock.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsPaneOpen, ElementName=HamburgerMenu}" Value="False">
+                                <Setter Property="TextBlock.Margin" Value="54 4 1 0"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsPaneOpen, ElementName=HamburgerMenu}" Value="True">
+                                <Setter Property="TextBlock.Margin" Value="8,4,1,0"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </DataTemplate>
+    </mah:MetroWindow.TitleTemplate>
     <Grid Background="Transparent">
         <Grid.Resources>
             <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type mah:HamburgerMenuGlyphItem}">
@@ -65,7 +99,8 @@
                            ItemTemplate="{StaticResource MenuItemTemplate}"
                            OptionsItemTemplate="{StaticResource OptionsMenuItemTemplate}"
                            PaneBackground="Transparent"
-                           ContentTransition="Left" ItemClick="HamburgerMenu_OnItemClick" >
+                           ContentTransition="Left" ItemClick="HamburgerMenu_OnItemClick"
+                           OpenPaneLength="200">
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Applications">
@@ -96,11 +131,14 @@
             <mah:HamburgerMenu.ContentTemplate>
                 <DataTemplate DataType="{x:Type mah:HamburgerMenuItem}">
                     <Grid x:Name="TheContentGrid">
+                        <Grid>
+                            <Rectangle Fill="#ff1E1E1E" IsHitTestVisible="False" Margin="0 -30 0 0 " ></Rectangle>
+                        </Grid>
+
                         <ContentControl x:Name="TheContent"
                                         Focusable="False"
                                         Foreground="{DynamicResource BlackBrush}"
                                         Content="{Binding Tag}" />
-                        <Rectangle Fill="#70000000" IsHitTestVisible="False" Margin="0 -25 0 0 "></Rectangle>
                     </Grid>
                 </DataTemplate>
             </mah:HamburgerMenu.ContentTemplate>
