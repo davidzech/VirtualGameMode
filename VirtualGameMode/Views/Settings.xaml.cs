@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VirtualGameMode.Models;
 
 namespace VirtualGameMode.Views
 {
@@ -25,39 +26,39 @@ namespace VirtualGameMode.Views
             InitializeComponent();
             switch (Properties.Settings.Default.ScopeWin)
             {
-                case 0:
+                case KeyScope.AddedApplications:
                     AddedAppWin.IsChecked = true;
                     break;
-                case 1:
+                case KeyScope.FullScreenApplications:
                     FullScreenWin.IsChecked = true;
                     break;
-                case 2:
+                case KeyScope.Global:
                     GlobalWin.IsChecked = true;
                     break;
             }
 
             switch (Properties.Settings.Default.ScopeAltTab)
             {
-                case 0:
+                case KeyScope.AddedApplications:
                     AddedAppAltTab.IsChecked = true;
                     break;
-                case 1:
+                case KeyScope.FullScreenApplications:
                     FullScreenAltTab.IsChecked = true;
                     break;
-                case 2:
+                case KeyScope.Global:
                     GlobalWinAltTab.IsChecked = true;
                     break;
             }
 
             switch (Properties.Settings.Default.ScopeAltF4)
             {
-                case 0:
+                case KeyScope.AddedApplications:
                     AddedAppAltF4.IsChecked = true;
                     break;
-                case 1:
+                case KeyScope.FullScreenApplications:
                     FullScreenAltF4.IsChecked = true;
                     break;
-                case 2:
+                case KeyScope.Global:
                     GlobalAltF4.IsChecked = true;
                     break;
             }
@@ -72,51 +73,51 @@ namespace VirtualGameMode.Views
 
         private void AddedAppWin_OnChecked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ScopeWin = 0;
+            Properties.Settings.Default.ScopeWin = KeyScope.AddedApplications;
         }
 
         private void FullScreenWin_OnChecked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ScopeWin = 1;
+            Properties.Settings.Default.ScopeWin = KeyScope.FullScreenApplications;
         }
 
         private void GlobalWin_OnChecked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ScopeWin = 2;
+            Properties.Settings.Default.ScopeWin = KeyScope.Global;
         }
         #endregion
 
         #region AltTab Scope
         private void AddedAppAltTab_OnChecked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ScopeAltTab = 0;
+            Properties.Settings.Default.ScopeAltTab = KeyScope.AddedApplications;
         }
 
         private void FullScreenAltTab_OnChecked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ScopeAltTab = 1;
+            Properties.Settings.Default.ScopeAltTab = KeyScope.FullScreenApplications;
         }
 
         private void GlobalWinAltTab_OnChecked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ScopeAltTab = 2;
+            Properties.Settings.Default.ScopeAltTab = KeyScope.Global;
         }
         #endregion
 
         #region AltF4 Scope
         private void AddedAppAltF4_OnChecked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ScopeAltF4 = 0;
+            Properties.Settings.Default.ScopeAltF4 = KeyScope.AddedApplications;
         }
 
         private void FullScreenAltF4_OnChecked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ScopeAltF4 = 1;
+            Properties.Settings.Default.ScopeAltF4 = KeyScope.FullScreenApplications;
         }
 
         private void GlobalAltF4_OnChecked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ScopeAltF4 = 2;
+            Properties.Settings.Default.ScopeAltF4 = KeyScope.Global;
         }
         #endregion
     }

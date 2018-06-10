@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using VirtualGameMode.Models;
 using WM = VirtualGameMode.Native.WM;
 using VK = VirtualGameMode.Native.VK;
 
@@ -84,16 +85,16 @@ namespace VirtualGameMode
             return Native.CallNextHookEx(0, nCode, new IntPtr(wParam), lParam);
         }
 
-        private static bool IsValidScopeForSetting(int scope)
+        private static bool IsValidScopeForSetting(KeyScope scope)
         {
             switch (scope)
             {
-                case 0:
+                case KeyScope.AddedApplications:
                     // check app
                     return IsForegroundWindowInAppList();
-                case 1:
+                case KeyScope.FullScreenApplications:
                     return IsForegroundWindowFullScreen();
-                case 2:
+                case KeyScope.Global:
                     return true;
                 default:
                     // Log this

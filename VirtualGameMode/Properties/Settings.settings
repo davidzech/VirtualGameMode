@@ -17,14 +17,14 @@
     <Setting Name="AutoGameMode" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ScopeWin" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="ScopeWin" Type="VirtualGameMode.Models.KeyScope" Scope="User">
+      <Value Profile="(Default)">AddedApplications</Value>
     </Setting>
-    <Setting Name="ScopeAltTab" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="ScopeAltTab" Type="VirtualGameMode.Models.KeyScope" Scope="User">
+      <Value Profile="(Default)">AddedApplications</Value>
     </Setting>
-    <Setting Name="ScopeAltF4" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="ScopeAltF4" Type="VirtualGameMode.Models.KeyScope" Scope="User">
+      <Value Profile="(Default)">AddedApplications</Value>
     </Setting>
     <Setting Name="Applications" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />

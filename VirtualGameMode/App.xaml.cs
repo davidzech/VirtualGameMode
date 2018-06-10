@@ -25,22 +25,18 @@ namespace VirtualGameMode
 
         private void EnableDebugPrivileges()
         {
-            IntPtr hToken;
             Native.TOKEN_PRIVILEGES priv;
-            Native.LUID luidSeDebug;
 
-            if (!Native.OpenProcessToken(Native.GetCurrentProcess(), Native.TOKEN_ADJUST_PRIVILEGES | Native.TOKEN_QUERY, out hToken))
+            if (!Native.OpenProcessToken(Native.GetCurrentProcess(), Native.TOKEN_ADJUST_PRIVILEGES | Native.TOKEN_QUERY, out var hToken))
             {
-                Console.WriteLine($"OpenProcessToken() failed: {Marshal.GetLastWin32Error()}");
-                throw new Exception("1");
+                Console.Error.WriteLine($"OpenProcessToken() failed: {Marshal.GetLastWin32Error()}");
                 return;
             }
 
-            if (!Native.LookupPrivilegeValue(null, Native.SE_DEBUG_NAME, out luidSeDebug))
+            if (!Native.LookupPrivilegeValue(null, Native.SE_DEBUG_NAME, out var luidSeDebug))
             {
-                Console.WriteLine($"LookupPrivilegeValue() failed: {Marshal.GetLastWin32Error()}");
+                Console.Error.WriteLine($"LookupPrivilegeValue() failed: {Marshal.GetLastWin32Error()}");
                 Native.CloseHandle(hToken);
-                throw new Exception("2");
                 return;
             }
 
@@ -50,8 +46,7 @@ namespace VirtualGameMode
                 new Native.LUID_AND_ATTRIBUTES() {Attributes = Native.SE_PRIVILEGE_ENABLED, Luid = luidSeDebug};
             if (!Native.AdjustTokenPrivileges(hToken, false, ref priv, 0))
             {
-                Console.WriteLine($"AdjustTokenPrivileges() failed: {Marshal.GetLastWin32Error()}");
-                throw new Exception("3");
+                Console.Error.WriteLine($"AdjustTokenPrivileges() failed: {Marshal.GetLastWin32Error()}");
             }
             Native.CloseHandle(hToken);
         }

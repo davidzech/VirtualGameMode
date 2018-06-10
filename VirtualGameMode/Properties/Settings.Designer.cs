@@ -85,10 +85,10 @@ namespace VirtualGameMode.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ScopeWin {
+        [global::System.Configuration.DefaultSettingValueAttribute("AddedApplications")]
+        public global::VirtualGameMode.Models.KeyScope ScopeWin {
             get {
-                return ((int)(this["ScopeWin"]));
+                return ((global::VirtualGameMode.Models.KeyScope)(this["ScopeWin"]));
             }
             set {
                 this["ScopeWin"] = value;
@@ -97,10 +97,10 @@ namespace VirtualGameMode.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ScopeAltTab {
+        [global::System.Configuration.DefaultSettingValueAttribute("AddedApplications")]
+        public global::VirtualGameMode.Models.KeyScope ScopeAltTab {
             get {
-                return ((int)(this["ScopeAltTab"]));
+                return ((global::VirtualGameMode.Models.KeyScope)(this["ScopeAltTab"]));
             }
             set {
                 this["ScopeAltTab"] = value;
@@ -109,10 +109,10 @@ namespace VirtualGameMode.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ScopeAltF4 {
+        [global::System.Configuration.DefaultSettingValueAttribute("AddedApplications")]
+        public global::VirtualGameMode.Models.KeyScope ScopeAltF4 {
             get {
-                return ((int)(this["ScopeAltF4"]));
+                return ((global::VirtualGameMode.Models.KeyScope)(this["ScopeAltF4"]));
             }
             set {
                 this["ScopeAltF4"] = value;
