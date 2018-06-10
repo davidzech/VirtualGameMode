@@ -90,7 +90,7 @@ namespace VirtualGameMode
             {
                 case 0:
                     // check app
-                    return false;                    
+                    return IsForegroundWindowInAppList();
                 case 1:
                     return IsForegroundWindowFullScreen();
                 case 2:
@@ -99,6 +99,17 @@ namespace VirtualGameMode
                     // Log this
                     return false;
             }
+        }
+
+        private static bool IsForegroundWindowInAppList()
+        {
+            var hwnd = Native.GetForegroundWindow();
+            var processId = Native.GetWindowThreadProcessId(hwnd, IntPtr.Zero);
+            var process = Native.OpenProcess(Native.ProcessAccessFlags.QueryLimitedInformation, false, processId);
+            if (process == IntPtr.Zero) return false;
+            StringBuilder nameBuilder = new StringBuilder();
+            var fqFileName = Native.GetModuleFileNameEx(process, IntPtr.Zero, nameBuilder, nameBuilder.Capacity);
+            return Properties.Settings.Default.Applications.Contains(fqFileName.ToString());
         }
 
         private static bool IsForegroundWindowFullScreen()
@@ -116,8 +127,8 @@ namespace VirtualGameMode
                     windowRect.Top == monitorInfo.Monitor.Top
                 );
         }
-
         public static void RemoveHook()
+
         {
             Native.UnhookWindowsHookEx(_hook);
         }

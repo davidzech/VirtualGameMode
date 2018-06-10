@@ -118,5 +118,16 @@ namespace VirtualGameMode.Properties {
                 this["ScopeAltF4"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection Applications {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Applications"]));
+            }
+            set {
+                this["Applications"] = value;
+            }
+        }
     }
 }
