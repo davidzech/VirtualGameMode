@@ -82,7 +82,7 @@ namespace VirtualGameMode
         public static extern IntPtr GetForegroundWindow();
 
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
 
         // When you don't want the ProcessId, use this overload and pass IntPtr.Zero for the second parameter
         [DllImport("user32.dll")]
@@ -220,5 +220,82 @@ namespace VirtualGameMode
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool GetWindowRect(IntPtr hwnd, out RectStruct lpRect);
+
+        //Use these for DesiredAccess
+        public const UInt32 STANDARD_RIGHTS_REQUIRED = 0x000F0000;
+        public const UInt32 STANDARD_RIGHTS_READ = 0x00020000;
+        public const UInt32 TOKEN_ASSIGN_PRIMARY = 0x0001;
+        public const UInt32 TOKEN_DUPLICATE = 0x0002;
+        public const UInt32 TOKEN_IMPERSONATE = 0x0004;
+        public const UInt32 TOKEN_QUERY = 0x0008;
+        public const UInt32 TOKEN_QUERY_SOURCE = 0x0010;
+        public const UInt32 TOKEN_ADJUST_PRIVILEGES = 0x0020;
+        public const UInt32 TOKEN_ADJUST_GROUPS = 0x0040;
+        public const UInt32 TOKEN_ADJUST_DEFAULT = 0x0080;
+        public const UInt32 TOKEN_ADJUST_SESSIONID = 0x0100;
+        public const UInt32 TOKEN_READ = (STANDARD_RIGHTS_READ | TOKEN_QUERY);
+        public const UInt32 TOKEN_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED | TOKEN_ASSIGN_PRIMARY |
+                                                TOKEN_DUPLICATE | TOKEN_IMPERSONATE | TOKEN_QUERY | TOKEN_QUERY_SOURCE |
+                                                TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT |
+                                                TOKEN_ADJUST_SESSIONID);
+
+        [DllImport("advapi32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool OpenProcessToken(IntPtr ProcessHandle,
+            UInt32 DesiredAccess, out IntPtr TokenHandle);
+
+        public struct LUID
+        {
+
+            public UInt32 LowPart;
+            public Int32 HighPart;
+        }
+
+        [StructLayout(LayoutKind.Sequential, Pack = 4)]
+        public struct LUID_AND_ATTRIBUTES
+        {
+            public LUID Luid;
+            public UInt32 Attributes;
+        }
+
+        [DllImport("advapi32.dll")]
+        public static extern bool LookupPrivilegeValue(string lpSystemName, string lpName,
+            out LUID lpLuid);
+
+        public struct TOKEN_PRIVILEGES
+        {
+            public int PrivilegeCount;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
+            public LUID_AND_ATTRIBUTES[] Privileges;
+        }
+
+        public const string SE_DEBUG_NAME = "SeDebugPrivilege";
+        public const int SE_PRIVILEGE_ENABLED = 0x00000002;
+
+        // Use this signature if you want the previous state information returned
+        [DllImport("advapi32.dll", SetLastError = true)]
+        public static extern bool AdjustTokenPrivileges(
+            [In] IntPtr TokenHandle,
+            [In] bool DisableAllPrivileges,
+            [In] [Optional] ref TOKEN_PRIVILEGES NewState,
+            [In] UInt32 BufferLengthInBytes,
+            [Out] [Optional] out TOKEN_PRIVILEGES PreviousState,
+            [Out] [Optional] out UInt32 ReturnLengthInBytes);
+
+        [DllImport("advapi32.dll", SetLastError = true)]
+        public static extern bool AdjustTokenPrivileges(
+            [In] IntPtr TokenHandle,
+            [In] bool DisableAllPrivileges,
+            [In] [Optional] ref TOKEN_PRIVILEGES NewState,
+            [In] UInt32 Zero,
+            [Out] [Optional] IntPtr Null1,
+            [Out] [Optional] IntPtr Null2);
+
+        [DllImport("kernel32.dll", ExactSpelling = true)]
+        public static extern IntPtr GetCurrentProcess();
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern Boolean CloseHandle(IntPtr hObject);
     }
 }

@@ -80,7 +80,7 @@ namespace VirtualGameMode
                     return 1;
                 }
             }
-
+           
             return Native.CallNextHookEx(0, nCode, new IntPtr(wParam), lParam);
         }
 
@@ -104,19 +104,24 @@ namespace VirtualGameMode
         private static bool IsForegroundWindowInAppList()
         {
             var hwnd = Native.GetForegroundWindow();
-            var processId = Native.GetWindowThreadProcessId(hwnd, IntPtr.Zero);
-            var process = Native.OpenProcess(Native.ProcessAccessFlags.QueryLimitedInformation, false, processId);
-            if (process == IntPtr.Zero) return false;
+            Native.GetWindowThreadProcessId(hwnd, out var processId);
+            var process = Native.OpenProcess(Native.ProcessAccessFlags.QueryInformation | Native.ProcessAccessFlags.VirtualMemoryRead, false, processId);
+            if (process == IntPtr.Zero)
+            {
+                string error = $"OpenProcess() failed {Marshal.GetLastWin32Error()}";
+                Console.WriteLine(error);
+                return false;
+            }
+
             StringBuilder nameBuilder = new StringBuilder();
-            var fqFileName = Native.GetModuleFileNameEx(process, IntPtr.Zero, nameBuilder, nameBuilder.Capacity);
-            return Properties.Settings.Default.Applications.Contains(fqFileName.ToString());
+            Native.GetModuleFileNameEx(process, IntPtr.Zero, nameBuilder, nameBuilder.Capacity);
+            return Properties.Settings.Default.Applications.Contains(nameBuilder.ToString());
         }
 
         private static bool IsForegroundWindowFullScreen()
         {
             var hwnd = Native.GetForegroundWindow();
-            var windowRect = new Native.RectStruct();
-            Native.GetWindowRect(hwnd, out windowRect);
+            Native.GetWindowRect(hwnd, out var windowRect);
             var monitor = Native.MonitorFromWindow(hwnd, Native.MONITOR_DEFAULTTONEAREST);
             var monitorInfo = new Native.MonitorInfoEx();
             monitorInfo.Init();
