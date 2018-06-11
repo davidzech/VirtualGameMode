@@ -4,15 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VirtualGameMode.Views"
+             xmlns:models="clr-namespace:VirtualGameMode.Models"
+             xmlns:vm="clr-namespace:VirtualGameMode.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance vm:ApplicationsViewModel, IsDesignTimeCreatable=True}">
     <Grid Margin="20 0 0 0">
-        <ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Label FontSize="20">Added Applications</Label>
+        <ListView Grid.Row="1" BorderBrush="Transparent" ItemsSource="{Binding Apps}" Background="Transparent">
             <ListView.ItemTemplate>
                 <DataTemplate>
-
+                    <StackPanel d:DataContext="{d:DesignInstance models:UserApplication, IsDesignTimeCreatable=True}">
+                        <TextBlock FontSize="18" Text="{Binding Name}"></TextBlock>
+                        <TextBlock FontSize="14" Text="{Binding ExePath}" Foreground="LightGray"></TextBlock>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackPanel Grid.Row="2">
+            <Button HorizontalAlignment="Right" Margin="0 0 10 0" Content="Add" Style="{StaticResource FlatButtonStyle}" Background="#FF2F2F2F"/>
+        </StackPanel>
     </Grid>
 </UserControl>

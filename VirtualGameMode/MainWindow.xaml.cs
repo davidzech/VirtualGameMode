@@ -17,6 +17,7 @@ using ControlzEx.Behaviors;
 using ControlzEx.Standard;
 using MahApps.Metro.Behaviours;
 using MahApps.Metro.Controls;
+using VirtualGameMode.Settings;
 using NotifyIcon = System.Windows.Forms.NotifyIcon;
 
 namespace VirtualGameMode
@@ -26,14 +27,14 @@ namespace VirtualGameMode
     /// </summary>
     public partial class MainWindow
     {
-        private NotifyIcon trayIcon;
+        private readonly NotifyIcon trayIcon;
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
             using (var iconStream = Application
                 .GetResourceStream(new Uri("pack://application:,,,/VirtualGameMode;component/Resources/icon.ico"))
-                .Stream)
+                ?.Stream)
             {
                 trayIcon = new NotifyIcon()
                 {
@@ -122,7 +123,7 @@ namespace VirtualGameMode
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             GameModeHook.RemoveHook();
-            Properties.Settings.Default.Save();
+            SettingsCollection.Default.Save();           
         }
 
         private void HamburgerMenu_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
@@ -132,7 +133,7 @@ namespace VirtualGameMode
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            if (Properties.Settings.Default.AutoGameMode)
+            if (SettingsCollection.Default.AutoGameMode)
             {
                 GameModeOn = true;
             }

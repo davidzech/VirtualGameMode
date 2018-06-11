@@ -1,27 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using VirtualGameMode.Models;
-using WM = VirtualGameMode.Native.WM;
+using VirtualGameMode.Settings;
 using VK = VirtualGameMode.Native.VK;
+using WM = VirtualGameMode.Native.WM;
 
 namespace VirtualGameMode
 {
     public static class GameModeHook
     {
-        private static int _hook = 0;
-        private static Native.HookProc hookfn = new Native.HookProc(KeyboardProc);
+        private static int _hook;
+        private static readonly Native.HookProc Hookfn = KeyboardProc;
         public static void InstallHook()
         {
-            _hook = Native.SetWindowsHookEx(Native.WH_KEYBOARD_LL, hookfn, IntPtr.Zero, 0);
+            _hook = Native.SetWindowsHookEx(Native.WH_KEYBOARD_LL, Hookfn, IntPtr.Zero, 0);
         }
 
-        private static bool _lAltPressed = false, _rAltPressed = false;
+        private static bool _lAltPressed, _rAltPressed;
         private static int KeyboardProc(int nCode, int wParam, IntPtr lParam)
         {
             if (nCode < 0 || nCode != Native.HC_ACTION)
@@ -58,7 +55,7 @@ namespace VirtualGameMode
             bool alt = _lAltPressed || _rAltPressed || Keyboard.GetKeyStates(Key.LeftAlt) == KeyStates.Down ||
                        (Keyboard.GetKeyStates(Key.RightAlt) == KeyStates.Down);            
 
-            if (Properties.Settings.Default.DisableAltF4 && IsValidScopeForSetting(Properties.Settings.Default.ScopeAltF4))
+            if (SettingsCollection.Default.DisableAltF4 && IsValidScopeForSetting(SettingsCollection.Default.DisableAltF4Scope))
             {
                 if (kb.vkCode == VK.F4 && alt)
                 {
@@ -66,7 +63,7 @@ namespace VirtualGameMode
                 }
             }
 
-            if (Properties.Settings.Default.DisableAltTab && IsValidScopeForSetting(Properties.Settings.Default.ScopeAltTab))
+            if (SettingsCollection.Default.DisableAltTab && IsValidScopeForSetting(SettingsCollection.Default.DisableAltTabScope))
             {
                 if (kb.vkCode == VK.Tab && alt)
                 {
@@ -74,7 +71,7 @@ namespace VirtualGameMode
                 }
             }
 
-            if (Properties.Settings.Default.DisableWinKey && IsValidScopeForSetting(Properties.Settings.Default.ScopeWin))
+            if (SettingsCollection.Default.DisableWinKey && IsValidScopeForSetting(SettingsCollection.Default.DisableWinKeyScope))
             {
                 if (kb.vkCode == VK.LWIN || kb.vkCode == VK.RWIN)
                 {
@@ -116,7 +113,8 @@ namespace VirtualGameMode
 
             StringBuilder nameBuilder = new StringBuilder();
             Native.GetModuleFileNameEx(process, IntPtr.Zero, nameBuilder, nameBuilder.Capacity);
-            return Properties.Settings.Default.Applications.Contains(nameBuilder.ToString());
+            var exe = nameBuilder.ToString();
+            return SettingsCollection.Default.UserApplications.Exists(ua => ua.ExePath == exe); 
         }
 
         private static bool IsForegroundWindowFullScreen()

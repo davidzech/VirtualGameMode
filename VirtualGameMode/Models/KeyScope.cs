@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VirtualGameMode.Models
 {
     [Serializable]
-    public enum KeyScope : int
+    public enum KeyScope
     {
         AddedApplications = 0,
         FullScreenApplications = 1,

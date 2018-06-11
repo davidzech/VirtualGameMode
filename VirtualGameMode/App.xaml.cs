@@ -19,7 +19,7 @@ namespace VirtualGameMode
         public App()
         {
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
-            StartupManager.SyncStartupKey();
+            StartupManager.SyncStartupKey();            
             //EnableDebugPrivileges();
         }
 

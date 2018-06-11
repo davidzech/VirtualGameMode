@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using VirtualGameMode.ViewModels;
 
-namespace VirtualGameMode.Views
+namespace VirtualGameMode.Dialogs
 {
     /// <summary>
-    /// Interaction logic for Applications.xaml
+    /// Interaction logic for AddApplicationDialog.xaml
     /// </summary>
-    public partial class Applications : UserControl
+    public partial class AddApplicationDialog : UserControl
     {
-        public Applications()
+        public AddApplicationDialog()
         {
             InitializeComponent();
-            // delay until loaded so we don't change stuff before the UI is loaded
-            this.DataContext = new ApplicationsViewModel();
         }
     }
 }
