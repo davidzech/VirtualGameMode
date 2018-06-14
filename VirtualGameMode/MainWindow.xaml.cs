@@ -17,7 +17,9 @@ using ControlzEx.Behaviors;
 using ControlzEx.Standard;
 using MahApps.Metro.Behaviours;
 using MahApps.Metro.Controls;
+using VirtualGameMode.Functions;
 using VirtualGameMode.Settings;
+using VirtualGameMode.ViewModels;
 using NotifyIcon = System.Windows.Forms.NotifyIcon;
 
 namespace VirtualGameMode
@@ -31,7 +33,7 @@ namespace VirtualGameMode
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
+            this.DataContext = new MainWindowViewModel();
             using (var iconStream = Application
                 .GetResourceStream(new Uri("pack://application:,,,/VirtualGameMode;component/Resources/icon.ico"))
                 ?.Stream)
@@ -84,59 +86,35 @@ namespace VirtualGameMode
             base.OnStateChanged(e);
         }
 
-        private bool _gameModeOn = false;
-        public bool GameModeOn
-        {
-            get => _gameModeOn;
-            set
-            {
-                _gameModeOn = value;
-                if (value == true)
-                {
-                    this.GameModeToggle.Content = "Game Mode is On";
-                    this.GameModeToggle.Foreground = (Brush) FindResource("AccentColorBrush");
-                    this.GameModeToggle.IsChecked = true;
-                    GameModeHook.InstallHook();
-                }
-                else
-                {
-                    this.GameModeToggle.Content = "Game Mode is Off";
-                    this.GameModeToggle.Foreground = (Brush) FindResource("TextBrush");
-                    this.GameModeToggle.IsChecked = false;
-                    GameModeHook.RemoveHook();
-                }
-            }
-        }
-
-        private void GameModeToggle_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (!GameModeOn)
-            {
-                GameModeOn = true;
-            }
-            else
-            {
-                GameModeOn = false;
-            }
-        }
-
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             GameModeHook.RemoveHook();
             SettingsCollection.Default.Save();           
         }
 
+
+        // TODO: move this logic to MainWindowViewModel
         private void HamburgerMenu_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
         {
             this.HamburgerMenu.Content = e.InvokedItem;
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        private void Applications_Loaded(object sender, RoutedEventArgs e)
         {
-            if (SettingsCollection.Default.AutoGameMode)
-            {
-                GameModeOn = true;
-            }
+
+        }
+
+        // not using styles here because it overrides the mahapps.metro style and thats a pain in the ass to sublcass
+        private void GameModeToggle_OnChecked(object sender, RoutedEventArgs e)
+        {
+            GameModeToggle.Foreground = (Brush)FindResource("AccentColorBrush");
+            GameModeToggle.Content = "Game Mode On";
+        }
+
+        private void GameModeToggle_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            GameModeToggle.Foreground = Brushes.White;
+            GameModeToggle.Content = "Game Mode Off";
         }
     }
 }

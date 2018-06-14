@@ -1,12 +1,43 @@
-﻿<UserControl x:Class="VirtualGameMode.Dialogs.AddApplicationDialog"
+﻿<dialog:CustomDialog x:Class="VirtualGameMode.Dialogs.AddApplicationDialog"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VirtualGameMode.Dialogs"
+             xmlns:vm="clr-namespace:VirtualGameMode.ViewModels"
+             xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance {x:Type vm:AddApplicationViewModel}}">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel RenderTransformOrigin="0.5,0.5">
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.004"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
+            <Label FontSize="18">Find Window</Label>
+            <ComboBox IsEditable="False"
+                      mah:TextBoxHelper.Watermark="Select a Window..." 
+                      mah:TextBoxHelper.UseFloatingWatermark="True"
+                      mah:TextBoxHelper.ClearTextButton="True"
+                      DropDownOpened="ComboBox_OnDropDownOpened"
+                      ItemsSource="{Binding ActiveWindows}"
+                      SelectedItem="{Binding SelectedApplication}"
+                      DisplayMemberPath="Name"></ComboBox>
+        </StackPanel>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Width="80" Margin="4" Command="{Binding CancelCommand}">Close</Button>
+            <Button Width="80" Margin="4" Command="{Binding OkCommand}" Content="Add"  Style="{DynamicResource AccentedDialogHighlightedSquareButton}"
+                    IsEnabled="{Binding CanAdd}">
+            </Button>
+        </StackPanel>
     </Grid>
-</UserControl>
+</dialog:CustomDialog>

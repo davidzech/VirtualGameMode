@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:VirtualGameMode"
         xmlns:views="clr-namespace:VirtualGameMode.Views"                 
         xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:vm="clr-namespace:VirtualGameMode.ViewModels"
          xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
          xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
         mc:Ignorable="d"
@@ -20,17 +21,16 @@
                  NonActiveBorderBrush="Transparent"
                  TitleCharacterCasing="Normal"
                  Title="Virtual Game Mode"
-                 WindowButtonCommandsOverlayBehavior="Always"
-                 ShowDialogsOverTitleBar="False"
+                 ShowDialogsOverTitleBar="True"
                  TitlebarHeight="30"
-                 Closing="MainWindow_OnClosing"
-                 Loaded="MainWindow_OnLoaded">
+                 Closing="MainWindow_OnClosing" d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
     <mah:MetroWindow.WindowButtonCommands>
         <mah:WindowButtonCommands Template="{DynamicResource MahApps.Metro.Templates.WindowButtonCommands.Win10}"  />
     </mah:MetroWindow.WindowButtonCommands>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <ToggleButton x:Name="GameModeToggle" Content="Game Mode is Off" Click="GameModeToggle_OnClick">
+            <ToggleButton FontSize="14" x:Name="GameModeToggle" Content="Game Mode is Off" Foreground="LightGray"
+                          Background="Transparent" BorderBrush="Transparent" BorderThickness="0" IsChecked="{Binding GameModeOn}" Margin="0 0 4 0" Checked="GameModeToggle_OnChecked" Unchecked="GameModeToggle_OnUnchecked">
             </ToggleButton>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
@@ -138,7 +138,7 @@
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Applications">
                         <mah:HamburgerMenuGlyphItem.Tag>
-                            <views:Applications></views:Applications>
+                            <views:Applications Loaded="Applications_Loaded"></views:Applications>
                         </mah:HamburgerMenuGlyphItem.Tag>
                     </mah:HamburgerMenuGlyphItem>
 

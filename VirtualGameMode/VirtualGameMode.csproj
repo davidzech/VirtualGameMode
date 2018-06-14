@@ -109,13 +109,15 @@
     <Compile Include="Dialogs\AddApplicationDialog.xaml.cs">
       <DependentUpon>AddApplicationDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GameModeHook.cs" />
+    <Compile Include="Functions\GameModeHook.cs" />
     <Compile Include="Models\UserApplication.cs" />
     <Compile Include="Models\KeyScope.cs" />
     <Compile Include="Settings\SettingsCollection.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="StartupManager.cs" />
+    <Compile Include="Functions\StartupManager.cs" />
+    <Compile Include="ViewModels\AddApplicationViewModel.cs" />
     <Compile Include="ViewModels\ApplicationsViewModel.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Views\Applications.xaml.cs">
       <DependentUpon>Applications.xaml</DependentUpon>
     </Compile>
@@ -163,7 +165,7 @@
     <Compile Include="MiniWindow.xaml.cs">
       <DependentUpon>MiniWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Native.cs" />
+    <Compile Include="Functions\Native.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
 
-namespace VirtualGameMode
+namespace VirtualGameMode.Functions
 {
     public static class StartupManager
     {

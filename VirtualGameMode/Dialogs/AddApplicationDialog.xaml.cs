@@ -12,17 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VirtualGameMode.Commands;
+using VirtualGameMode.ViewModels;
 
 namespace VirtualGameMode.Dialogs
 {
     /// <summary>
     /// Interaction logic for AddApplicationDialog.xaml
     /// </summary>
-    public partial class AddApplicationDialog : UserControl
-    {
+    public partial class AddApplicationDialog
+    { 
         public AddApplicationDialog()
         {
             InitializeComponent();
+        }
+
+        private void ComboBox_OnDropDownOpened(object sender, EventArgs e)
+        {
+            ((AddApplicationViewModel)DataContext).FindActiveWindows();
         }
     }
 }

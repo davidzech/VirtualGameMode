@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls.Dialogs;
 using VirtualGameMode.ViewModels;
 
 namespace VirtualGameMode.Views
@@ -25,7 +26,7 @@ namespace VirtualGameMode.Views
         {
             InitializeComponent();
             // delay until loaded so we don't change stuff before the UI is loaded
-            this.DataContext = new ApplicationsViewModel();
+            this.DataContext = new ApplicationsViewModel(DialogCoordinator.Instance);
         }
     }
 }

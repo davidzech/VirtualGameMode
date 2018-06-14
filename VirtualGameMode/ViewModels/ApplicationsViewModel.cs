@@ -13,7 +13,9 @@ using VirtualGameMode.Models;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Input;
+using MahApps.Metro.Controls.Dialogs;
 using VirtualGameMode.Commands;
+using VirtualGameMode.Dialogs;
 using VirtualGameMode.Settings;
 
 namespace VirtualGameMode.ViewModels
@@ -33,9 +35,17 @@ namespace VirtualGameMode.ViewModels
 
         public void AddItem(object obj)
         {
-            var newItem = new UserApplication() {Name = NameFieldText, ExePath = ExeFieldText};
-            _apps.Add(newItem);
-            SettingsCollection.Default.UserApplications.Add(newItem);
+            ShowAddDialog();
+        }
+
+        public async void ShowAddDialog()
+        {
+            var dialog = new AddApplicationDialog();
+            var dataContext =
+                new AddApplicationViewModel(o => { _coordinator.HideMetroDialogAsync(this, dialog); },
+                    o => { _coordinator.HideMetroDialogAsync(this, dialog);});
+            dialog.DataContext = dataContext;
+            await _coordinator.ShowMetroDialogAsync(this, dialog);
         }
 
         public bool CanRemoveItem => false;
@@ -48,8 +58,10 @@ namespace VirtualGameMode.ViewModels
             SettingsCollection.Default.UserApplications.Remove(app);
         }
 
-        public ApplicationsViewModel()
+        private IDialogCoordinator _coordinator;
+        public ApplicationsViewModel(IDialogCoordinator coordinator)
         {
+            _coordinator = coordinator;
             _addItemCommand = new RelayCommand<object>(AddItem, param => CanAddItem);
             _apps = new ObservableCollection<UserApplication>(SettingsCollection.Default.UserApplications);
         }
