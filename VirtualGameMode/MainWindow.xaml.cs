@@ -99,11 +99,6 @@ namespace VirtualGameMode
             this.HamburgerMenu.Content = e.InvokedItem;
         }
 
-        private void Applications_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         // not using styles here because it overrides the mahapps.metro style and thats a pain in the ass to sublcass
         private void GameModeToggle_OnChecked(object sender, RoutedEventArgs e)
         {

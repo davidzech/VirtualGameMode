@@ -23,16 +23,12 @@ namespace VirtualGameMode.ViewModels
                 _gameModeOn = value;
                 if (value == true)
                 {
-                    //this.GameModeToggle.Content = "Game Mode is On";
-                    //this.GameModeToggle.Foreground = (Brush) FindResource("AccentColorBrush");
-                    //this.GameModeToggle.IsChecked = true;
+                    Console.WriteLine("Installing Hook");
                     GameModeHook.InstallHook();
                 }
                 else
                 {
-                    //this.GameModeToggle.Content = "Game Mode is Off";
-                    //this.GameModeToggle.Foreground = (Brush) FindResource("TextBrush");
-                    //this.GameModeToggle.IsChecked = false;
+                    Console.WriteLine("Removing Hook");
                     GameModeHook.RemoveHook();
                 }
                 OnPropertyChanged();

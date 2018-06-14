@@ -138,13 +138,13 @@
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Applications">
                         <mah:HamburgerMenuGlyphItem.Tag>
-                            <views:Applications Loaded="Applications_Loaded"></views:Applications>
+                            <views:Applications></views:Applications>
                         </mah:HamburgerMenuGlyphItem.Tag>
                     </mah:HamburgerMenuGlyphItem>
 
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Log">
                         <mah:HamburgerMenuGlyphItem.Tag>
-                            <views:Applications></views:Applications>
+                            <views:Log></views:Log>
                         </mah:HamburgerMenuGlyphItem.Tag>
                     </mah:HamburgerMenuGlyphItem>
 

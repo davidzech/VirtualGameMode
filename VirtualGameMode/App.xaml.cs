@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using VirtualGameMode.Functions;
+using VirtualGameMode.Models;
 using Console = System.Console;
 
 namespace VirtualGameMode
@@ -21,7 +22,6 @@ namespace VirtualGameMode
         {
             this.ShutdownMode = ShutdownMode.OnMainWindowClose;
             StartupManager.SyncStartupKey();            
-            //EnableDebugPrivileges();
         }
 
         private void EnableDebugPrivileges()

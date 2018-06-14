@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
+using VirtualGameMode.Settings;
 
 namespace VirtualGameMode.Functions
 {
@@ -14,7 +15,7 @@ namespace VirtualGameMode.Functions
         {
             var key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
             const string appName = "VirtualGameMode";
-            if (Properties.Settings.Default.LaunchOnStartup)
+            if (SettingsCollection.Default.LaunchOnStartup)
             {
                 key?.SetValue(appName, System.Reflection.Assembly.GetExecutingAssembly().Location);
             }

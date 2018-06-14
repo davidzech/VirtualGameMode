@@ -18,7 +18,7 @@
             <RowDefinition/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Label FontSize="20">Added Applications</Label>
+        <Label FontSize="22">Added Applications</Label>
         <ListView Grid.Row="1" BorderBrush="Transparent" ItemsSource="{Binding Apps}" Background="Transparent" mah:ControlsHelper.FocusBorderBrush="Transparent">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

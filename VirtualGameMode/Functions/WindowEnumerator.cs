@@ -44,9 +44,9 @@ namespace VirtualGameMode.Functions
                 Native.GetWindowThreadProcessId(hwnd, out var processId);
                 var process = Native.OpenProcess(Native.ProcessAccessFlags.QueryInformation | Native.ProcessAccessFlags.VirtualMemoryRead, false, processId);
                 if (process == IntPtr.Zero)
-                {
-                    string error = $"OpenProcess() failed {Marshal.GetLastWin32Error()}";
-                    Console.WriteLine(error);
+                {                   
+                    Console.Error.WriteLine($"OpenProcess() failed {Marshal.GetLastWin32Error()}");
+                    Console.Error.WriteLine("EnumerateWindow() failed because OpenProcess() returned 0.");
                     return null;
                 }            
                 Native.GetModuleFileNameEx(process, IntPtr.Zero, exeBuilder, exeBuilder.Capacity);
