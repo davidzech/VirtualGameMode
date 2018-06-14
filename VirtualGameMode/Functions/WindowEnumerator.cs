@@ -7,12 +7,18 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using VirtualGameMode.Models;
+using VirtualGameMode.Settings;
 
 namespace VirtualGameMode.Functions
 {
     public static class WindowEnumerator
     {
         private static readonly string[] blacklist = new[] {"explorer.exe", "microsoftedgecp.exe", "pplicationFrameHost.exe" };
+
+        private static bool AlreadyAdded(string exePath)
+        {
+            return SettingsCollection.Default.UserApplications.Exists(a => a.ExePath == exePath);
+        }
 
         public static IEnumerable<UserApplication> GetAllWindows()
         {
@@ -50,7 +56,7 @@ namespace VirtualGameMode.Functions
             return exePaths.Select(exe =>
             {
                 var fileName = Path.GetFileName(exe)?.ToLower();
-                if (File.Exists(exe) && fileName != null && !blacklist.Contains(fileName))
+                if (File.Exists(exe) && fileName != null && !blacklist.Contains(fileName) && !AlreadyAdded(exe))
                 {
                     FileVersionInfo info = FileVersionInfo.GetVersionInfo(Path.GetFullPath(exe));
                     return new UserApplication() { Name = info.ProductName, ExePath = exe };
