@@ -60,8 +60,11 @@ namespace VirtualGameMode
             contextMenu.MenuItems.Add("-");
             contextMenu.MenuItems.Add(menuItemExit);
             trayIcon.ContextMenu = contextMenu;
-            if(SettingsCollection.Default.StartMinimized)
-                WindowState = WindowState.Minimized;                        
+            if (SettingsCollection.Default.StartMinimized)
+            {
+                this.Hide();
+                WindowState = WindowState.Minimized;
+            }                  
         }
 
         private void TrayIcon_DoubleClick(object sender, EventArgs e)
