@@ -1,5 +1,4 @@
 # Virtual Game Mode
-------------------
 Virtual game mode is a software tool that emulates "Keyboard Game Mode," a feature found on many popular gaming keyboards. 
 Game Mode can disable certain keys and key combinations, such as the Windows Key, so your gaming sessions are not accidentally interrupted.
 ## Features
