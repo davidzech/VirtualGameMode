@@ -60,8 +60,8 @@
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 60 0 0">
                 <TextBlock HorizontalAlignment="Center" FontSize="30">Virtual Game Mode</TextBlock>
                 <TextBlock HorizontalAlignment="Center" FontSize="18" FontWeight="Light" Text="{Binding ApplicationVersion}" Margin="0 10 0 0"></TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="14" Margin="0 5">This open source software is licensed under the <Hyperlink>MIT License.</Hyperlink></TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="14" Margin="0 5">Source Code and Issue tracker can be found on <Hyperlink>GitHub.</Hyperlink></TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="14" Margin="0 5">This open source software is licensed under the <Hyperlink NavigateUri="https://github.com/AdditionalPylons/VirtualGameMode/blob/master/LICENSE" RequestNavigate="Hyperlink_OnRequestNavigate">MIT License.</Hyperlink></TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="14" Margin="0 5">Source Code and Issue tracker can be found on <Hyperlink NavigateUri="https://github.com/AdditionalPylons/VirtualGameMode" RequestNavigate="Hyperlink_OnRequestNavigate">GitHub.</Hyperlink></TextBlock>
             </StackPanel>
         </TabItem>
     </TabControl>
