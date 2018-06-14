@@ -5,30 +5,72 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VirtualGameMode.Views"
              xmlns:models="clr-namespace:VirtualGameMode.Models"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:vm="clr-namespace:VirtualGameMode.ViewModels"
              xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance vm:ApplicationsViewModel, IsDesignTimeCreatable=True}"
-             dialog:DialogParticipation.Register="{Binding}">
-    <Grid Margin="20 0 0 0">
+             d:DesignHeight="450" d:DesignWidth="800" d:DataContext="{d:DesignInstance vm:ApplicationsViewModel, IsDesignTimeCreatable=False}"
+             dialog:DialogParticipation.Register="{Binding}" x:Name="root">
+    <Grid Margin="20 0 20 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Label FontSize="20">Added Applications</Label>
-        <ListView Grid.Row="1" BorderBrush="Transparent" ItemsSource="{Binding Apps}" Background="Transparent">
+        <ListView Grid.Row="1" BorderBrush="Transparent" ItemsSource="{Binding Apps}" Background="Transparent" mah:ControlsHelper.FocusBorderBrush="Transparent">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="Transparent"></Setter>
+                    <Setter Property="Focusable" Value="False"></Setter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                <Border x:Name="Bd" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" Padding="10">
+                                    <Grid>
+                                        <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                        <ContentPresenter x:Name="contentPresenter" Visibility="Collapsed" />
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="GridView.ColumnCollection" Value="{x:Null}">
+                                        <Setter TargetName="contentPresenter" Property="Visibility" Value="Visible"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Bd" Property="Background" Value="{DynamicResource GrayBrush10}">
+                                        </Setter>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel d:DataContext="{d:DesignInstance models:UserApplication, IsDesignTimeCreatable=True}">
-                        <TextBlock FontSize="18" Text="{Binding Name}"></TextBlock>
-                        <TextBlock FontSize="14" Text="{Binding ExePath}" Foreground="LightGray"></TextBlock>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Background="Transparent">
+                            <TextBlock FontSize="18" Text="{Binding Name}" Foreground="White"></TextBlock>
+                            <TextBlock FontSize="14" Text="{Binding ExePath}" Foreground="DarkGray"></TextBlock>
+                        </StackPanel>
+                        <Button Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Border}}, Path=IsMouseOver, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Style="{DynamicResource MetroCircleButtonStyle}"
+                                Height="30" Width="30"
+                                Command="{Binding ElementName=root, Path=DataContext.RemoveItemCommand}" CommandParameter="{Binding}">
+                            <iconPacks:PackIconModern Width="10"
+                                                      Height="10"
+                                                      Kind="Close"></iconPacks:PackIconModern></Button>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <StackPanel Grid.Row="2">
-            <Button HorizontalAlignment="Right" Margin="0 0 10 0" Content="Add" Style="{StaticResource FlatButtonStyle}" Command="{Binding AddItemCommand}"/>
+            <Button HorizontalAlignment="Right" Content="Add" Style="{StaticResource FlatButtonStyle}" Command="{Binding AddItemCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

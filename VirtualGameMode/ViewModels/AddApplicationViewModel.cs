@@ -16,17 +16,17 @@ namespace VirtualGameMode.ViewModels
 {
     public class AddApplicationViewModel : INotifyPropertyChanged
     {
-        public AddApplicationViewModel(Action<AddApplicationViewModel> cancelAction, Action<AddApplicationViewModel> okAction)
+        public AddApplicationViewModel(Action<AddApplicationViewModel> cancelAction, Action<AddApplicationViewModel, UserApplication> okAction)
         {
             _cancelCommand = new RelayCommand<object>(o => cancelAction(this));
-            _okCommand = new RelayCommand<object>(o => okAction(this), o => CanAdd);
+            _okCommand = new RelayCommand<UserApplication>(o => okAction(this, o), o => CanAdd);
             FindActiveWindows();
         }
 
         private readonly RelayCommand<object> _cancelCommand;
         public ICommand CancelCommand => _cancelCommand;
 
-        private readonly RelayCommand<object> _okCommand;
+        private readonly RelayCommand<UserApplication> _okCommand;
         public ICommand OkCommand => _okCommand;
 
         private UserApplication _selectedApplication;
@@ -57,7 +57,7 @@ namespace VirtualGameMode.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
