@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -20,6 +21,8 @@ using MahApps.Metro.Controls;
 using VirtualGameMode.Functions;
 using VirtualGameMode.Settings;
 using VirtualGameMode.ViewModels;
+using Application = System.Windows.Application;
+using MenuItem = System.Windows.Controls.MenuItem;
 using NotifyIcon = System.Windows.Forms.NotifyIcon;
 
 namespace VirtualGameMode
@@ -44,12 +47,36 @@ namespace VirtualGameMode
                     Icon = new System.Drawing.Icon(iconStream)
                 };
             }
-
             trayIcon.DoubleClick += TrayIcon_DoubleClick;
-            //WindowState = WindowState.Minimized;
-            var mini = new MiniWindow();
-            //mini.Show();
-
+            var menuItemShow = new System.Windows.Forms.MenuItem()
+            {
+                Name = "Show/Hide",
+                Text = "Minimize to tray"                
+            };
+            menuItemShow.Click += (sender, args) =>
+            {
+                if (this.IsVisible)
+                {
+                    WindowState = WindowState.Minimized;
+                }
+                else
+                {
+                    this.Show();
+                    this.WindowState = WindowState.Normal;
+                }
+            };
+            var menuItemExit = new System.Windows.Forms.MenuItem()
+            {
+                Name = "Exit",
+                Text = "Exit"
+            };
+            menuItemExit.Click += (sender, args) => Application.Current.Shutdown();
+            var contextMenu = new System.Windows.Forms.ContextMenu(new []{menuItemShow});
+            contextMenu.MenuItems.Add("-");
+            contextMenu.MenuItems.Add(menuItemExit);
+            trayIcon.ContextMenu = contextMenu;
+            if(SettingsCollection.Default.StartMinimized)
+                WindowState = WindowState.Minimized;                        
         }
 
         private void TrayIcon_DoubleClick(object sender, EventArgs e)
@@ -81,8 +108,15 @@ namespace VirtualGameMode
         protected override void OnStateChanged(EventArgs e)
         {
             if (WindowState == WindowState.Minimized)
+            {
                 this.Hide();
-
+                trayIcon.ContextMenu.MenuItems[0].Text = "Show";
+            }
+            else
+            {
+                trayIcon.ContextMenu.MenuItems[0].Text = "Minimize to tray";
+                this.Show();
+            }
             base.OnStateChanged(e);
         }
 
