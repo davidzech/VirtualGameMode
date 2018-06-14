@@ -54,6 +54,8 @@ namespace VirtualGameMode.Settings
 
         public bool LaunchOnStartup { get; set; }
 
+        public bool StartMinimized { get; set; }
+
         public bool AutoGameMode { get; set; }
 
         public List<UserApplication> UserApplications { get; } = new List<UserApplication>();

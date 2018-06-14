@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,6 +27,7 @@ namespace VirtualGameMode.Views
         public Settings()
         {
             InitializeComponent();
+            this.DataContext = this;
             switch (SettingsCollection.Default.DisableWinKeyScope)
             {
                 case KeyScope.AddedApplications:
@@ -65,6 +67,8 @@ namespace VirtualGameMode.Views
                     break;
             }
         }
+
+        public string ApplicationVersion => "Version " + Assembly.GetEntryAssembly().GetName().Version;
 
         private void ToggleSwitch_OnChecked(object sender, RoutedEventArgs e)
         {

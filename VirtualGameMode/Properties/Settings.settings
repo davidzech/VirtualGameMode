@@ -1,33 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VirtualGameMode.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles />
-  <Settings>
-    <Setting Name="DisableWinKey" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="DisableAltTab" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="DisableAltF4" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="LaunchOnStartup" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="AutoGameMode" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="ScopeWin" Type="VirtualGameMode.Models.KeyScope" Scope="User">
-      <Value Profile="(Default)">AddedApplications</Value>
-    </Setting>
-    <Setting Name="ScopeAltTab" Type="VirtualGameMode.Models.KeyScope" Scope="User">
-      <Value Profile="(Default)">AddedApplications</Value>
-    </Setting>
-    <Setting Name="ScopeAltF4" Type="VirtualGameMode.Models.KeyScope" Scope="User">
-      <Value Profile="(Default)">AddedApplications</Value>
-    </Setting>
-    <Setting Name="Applications" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-  </Settings>
+  <Settings />
 </SettingsFile>

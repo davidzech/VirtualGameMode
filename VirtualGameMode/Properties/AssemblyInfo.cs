@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VirtualGameMode")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Virtual Game Mode")]
+[assembly: AssemblyDescription("Virtualized Keyboard Game Mode Software")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("VirtualGameMode")]
+[assembly: AssemblyProduct("Virtual Game Mode")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
