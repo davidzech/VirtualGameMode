@@ -30,7 +30,7 @@ namespace VirtualGameMode.Functions
                 case WM.KEYDOWN:
                 case WM.SYSKEYDOWN:
                     if (kb.vkCode == VK.LMENU)
-                    {
+                    {                        
                         _lAltPressed = true;
                     }
                     else if (kb.vkCode == VK.RMENU)
@@ -59,6 +59,7 @@ namespace VirtualGameMode.Functions
             {
                 if (kb.vkCode == VK.F4 && alt)
                 {
+                    Console.WriteLine("Alt-F4 caught");
                     return 1;
                 }
             }
@@ -67,6 +68,7 @@ namespace VirtualGameMode.Functions
             {
                 if (kb.vkCode == VK.Tab && alt)
                 {
+                    Console.WriteLine("Alt-Tab caught");
                     return 1;
                 }
             }
@@ -75,6 +77,7 @@ namespace VirtualGameMode.Functions
             {
                 if (kb.vkCode == VK.LWIN || kb.vkCode == VK.RWIN)
                 {
+                    Console.WriteLine("Windows key caught");
                     return 1;
                 }
             }
@@ -111,7 +114,7 @@ namespace VirtualGameMode.Functions
                 return false;
             }
 
-            StringBuilder nameBuilder = new StringBuilder();
+            StringBuilder nameBuilder = new StringBuilder(1024);
             Native.GetModuleFileNameEx(process, IntPtr.Zero, nameBuilder, nameBuilder.Capacity);
             var exe = nameBuilder.ToString();
             return SettingsCollection.Default.UserApplications.Exists(ua => ua.ExePath == exe); 
