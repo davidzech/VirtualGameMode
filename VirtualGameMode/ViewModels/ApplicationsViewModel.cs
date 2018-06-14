@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MahApps.Metro.Controls.Dialogs;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using VirtualGameMode.Annotations;
-using VirtualGameMode.Models;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Input;
-using MahApps.Metro.Controls.Dialogs;
+using VirtualGameMode.Annotations;
 using VirtualGameMode.Commands;
 using VirtualGameMode.Dialogs;
+using VirtualGameMode.Models;
 using VirtualGameMode.Settings;
 
 namespace VirtualGameMode.ViewModels
