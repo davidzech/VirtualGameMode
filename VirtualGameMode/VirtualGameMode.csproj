@@ -109,6 +109,7 @@
     <Compile Include="Dialogs\AddApplicationDialog.xaml.cs">
       <DependentUpon>AddApplicationDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Functions\WindowEnumerator.cs" />
     <Compile Include="Functions\GameModeHook.cs" />
     <Compile Include="Models\UserApplication.cs" />
     <Compile Include="Models\KeyScope.cs" />

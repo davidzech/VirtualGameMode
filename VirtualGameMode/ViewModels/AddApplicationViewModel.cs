@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using VirtualGameMode.Annotations;
 using VirtualGameMode.Commands;
+using VirtualGameMode.Functions;
 using VirtualGameMode.Models;
 
 namespace VirtualGameMode.ViewModels
@@ -18,7 +19,7 @@ namespace VirtualGameMode.ViewModels
         public AddApplicationViewModel(Action<AddApplicationViewModel> cancelAction, Action<AddApplicationViewModel> okAction)
         {
             _cancelCommand = new RelayCommand<object>(o => cancelAction(this));
-            _okCommand = new RelayCommand<object>(o => okAction(this), o => { return true; });
+            _okCommand = new RelayCommand<object>(o => okAction(this), o => CanAdd);
             FindActiveWindows();
         }
 
@@ -44,8 +45,11 @@ namespace VirtualGameMode.ViewModels
 
         public void FindActiveWindows()
         {
-            this.ActiveWindows.Clear();
-            this.ActiveWindows.Add(new UserApplication() { Name = "Chrome", ExePath = "c:/..."});
+            ActiveWindows.Clear();
+            foreach (var app in WindowEnumerator.GetAllWindows())
+            {
+                ActiveWindows.Add(app);
+            }
         }
 
         public ObservableCollection<UserApplication> ActiveWindows { get; } = new ObservableCollection<UserApplication>();
