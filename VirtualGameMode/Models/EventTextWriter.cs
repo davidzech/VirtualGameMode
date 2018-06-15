@@ -7,27 +7,53 @@ using System.Threading.Tasks;
 
 namespace VirtualGameMode.Models
 {
-    public class ValueWrittenEventArgs : EventArgs
+    public class LineWrittenEventArgs : EventArgs
     {
-        public ValueWrittenEventArgs(char value)
+        public LineWrittenEventArgs(string line)
         {
-            Value = value;
+            Line = line;
         }
 
-        public char Value { get; }
+        public string Line { get; }
     }
 
     public class EventTextWriter : TextWriter
     {
         public override Encoding Encoding => System.Text.Encoding.UTF8;
 
+        private readonly StringBuilder _builder = new StringBuilder(256);
         public override void Write(char value)
         {
-            ValueWritten?.Invoke(this, new ValueWrittenEventArgs(value));
+            _builder.Append(value);
+            // check if we end with New Line
+            var newLineLength = Environment.NewLine.Length;
+            if (_builder.Length < newLineLength)
+            {
+                return;
+            }
+
+            // newLineLength or more characters exist, check the last #newLineLength characters and see if they are equal.
+            bool equal = true;
+            for (int i = 0, j = _builder.Length - newLineLength ; i < newLineLength; i++, j++)
+            {
+                if (Environment.NewLine[i] != _builder[j])
+                {
+                    equal = false;
+                    break;
+                }
+            }
+
+            if (equal)
+            {
+                // new line detected, invoke eventhandler with string
+                var line = _builder.ToString(0, _builder.Length - newLineLength);
+                LineWritten?.Invoke(this, new LineWrittenEventArgs(line));
+                _builder.Clear();
+            }
         }
 
-        public delegate void ValueWrittenEventHandler(object sender, ValueWrittenEventArgs e);
+        public delegate void LineWrittenEventHandler(object sender, LineWrittenEventArgs e);
 
-        public event ValueWrittenEventHandler ValueWritten;
+        public event LineWrittenEventHandler LineWritten;
     }
 }
