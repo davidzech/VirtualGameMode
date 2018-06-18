@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input;
 using VirtualGameMode.Models;
-using VirtualGameMode.Settings;
 using VK = VirtualGameMode.Functions.Native.VK;
 using WM = VirtualGameMode.Functions.Native.WM;
 
@@ -55,7 +55,7 @@ namespace VirtualGameMode.Functions
             bool alt = _lAltPressed || _rAltPressed || Keyboard.GetKeyStates(Key.LeftAlt) == KeyStates.Down ||
                        (Keyboard.GetKeyStates(Key.RightAlt) == KeyStates.Down);            
 
-            if (SettingsCollection.Default.DisableAltF4 && IsValidScopeForSetting(SettingsCollection.Default.DisableAltF4Scope))
+            if (Settings.Default.DisableAltF4 && IsValidScopeForSetting(Settings.Default.DisableAltF4Scope))
             {
                 if (kb.vkCode == VK.F4 && alt)
                 {
@@ -64,7 +64,7 @@ namespace VirtualGameMode.Functions
                 }
             }
 
-            if (SettingsCollection.Default.DisableAltTab && IsValidScopeForSetting(SettingsCollection.Default.DisableAltTabScope))
+            if (Settings.Default.DisableAltTab && IsValidScopeForSetting(Settings.Default.DisableAltTabScope))
             {
                 if (kb.vkCode == VK.Tab && alt)
                 {
@@ -73,7 +73,7 @@ namespace VirtualGameMode.Functions
                 }
             }
 
-            if (SettingsCollection.Default.DisableWinKey && IsValidScopeForSetting(SettingsCollection.Default.DisableWinKeyScope))
+            if (Settings.Default.DisableWinKey && IsValidScopeForSetting(Settings.Default.DisableWinKeyScope))
             {
                 if (kb.vkCode == VK.LWIN || kb.vkCode == VK.RWIN)
                 {
@@ -117,7 +117,7 @@ namespace VirtualGameMode.Functions
             StringBuilder nameBuilder = new StringBuilder(1024);
             Native.GetModuleFileNameEx(process, IntPtr.Zero, nameBuilder, nameBuilder.Capacity);
             var exe = nameBuilder.ToString();
-            return SettingsCollection.Default.UserApplications.Exists(ua => ua.ExePath == exe); 
+            return Settings.Default.UserApplications.Count(ua => ua.ExePath == exe) != 0; 
         }
 
         private static bool IsForegroundWindowFullScreen()

@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using VirtualGameMode.Functions;
-using VirtualGameMode.Settings;
 using VirtualGameMode.ViewModels;
 using Application = System.Windows.Application;
 using NotifyIcon = System.Windows.Forms.NotifyIcon;
@@ -60,7 +59,7 @@ namespace VirtualGameMode
             contextMenu.MenuItems.Add("-");
             contextMenu.MenuItems.Add(menuItemExit);
             trayIcon.ContextMenu = contextMenu;
-            if (SettingsCollection.Default.StartMinimized)
+            if (Settings.Default.StartMinimized)
             {
                 this.Hide();
                 WindowState = WindowState.Minimized;
@@ -111,7 +110,7 @@ namespace VirtualGameMode
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             GameModeHook.RemoveHook();
-            SettingsCollection.Default.Save();           
+            Settings.Default.Save();           
         }
 
 

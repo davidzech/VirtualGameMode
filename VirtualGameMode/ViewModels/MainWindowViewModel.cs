@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using VirtualGameMode.Annotations;
 using VirtualGameMode.Functions;
-using VirtualGameMode.Settings;
 
 namespace VirtualGameMode.ViewModels
 {
@@ -37,7 +36,7 @@ namespace VirtualGameMode.ViewModels
 
         public MainWindowViewModel()
         {
-            this.GameModeOn = SettingsCollection.Default.AutoGameMode;
+            this.GameModeOn = Settings.Default.AutoGameMode;
         }
 
 

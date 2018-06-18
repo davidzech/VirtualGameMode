@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using VirtualGameMode.Models;
-using VirtualGameMode.Settings;
 
 namespace VirtualGameMode.Functions
 {
@@ -17,7 +16,7 @@ namespace VirtualGameMode.Functions
 
         private static bool AlreadyAdded(string exePath)
         {
-            return SettingsCollection.Default.UserApplications.Exists(a => a.ExePath == exePath);
+            return Settings.Default.UserApplications.Count(a => a.ExePath == exePath) != 0;
         }
 
         public static IEnumerable<UserApplication> GetAllWindows()

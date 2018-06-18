@@ -8,15 +8,13 @@ using VirtualGameMode.Annotations;
 using VirtualGameMode.Commands;
 using VirtualGameMode.Dialogs;
 using VirtualGameMode.Models;
-using VirtualGameMode.Settings;
 
 namespace VirtualGameMode.ViewModels
 {
     public sealed class ApplicationsViewModel : INotifyPropertyChanged
     {
-        private static readonly BinaryFormatter bf = new BinaryFormatter();
-        private readonly ObservableCollection<Models.UserApplication> _apps;
-        public ObservableCollection<Models.UserApplication> Apps => _apps;
+        private static readonly BinaryFormatter bf = new BinaryFormatter();      
+        public ObservableCollection<Models.UserApplication> Apps => Settings.Default.UserApplications;
 
         public string NameFieldText { get; set; }
         public string ExeFieldText { get; set; }
@@ -38,8 +36,7 @@ namespace VirtualGameMode.ViewModels
                     (model, application) =>
                     {
                         _coordinator.HideMetroDialogAsync(this, dialog);
-                        _apps.Add(application);
-                        SettingsCollection.Default.UserApplications.Add(application);
+                        Apps.Add(application);
                     });
             dialog.DataContext = dataContext;
             await _coordinator.ShowMetroDialogAsync(this, dialog);
@@ -50,8 +47,8 @@ namespace VirtualGameMode.ViewModels
 
         private void RemoveItem(UserApplication app)
         {
-            _apps.Remove(app);
-            SettingsCollection.Default.UserApplications.Remove(app);
+            Apps.Remove(app);
+            Settings.Default.UserApplications.Remove(app);
         }
 
         private readonly IDialogCoordinator _coordinator;
@@ -60,7 +57,6 @@ namespace VirtualGameMode.ViewModels
             _coordinator = coordinator;
             _addItemCommand = new RelayCommand<object>(AddItem, param => CanAddItem);
             _removeItemCommand = new RelayCommand<UserApplication>(RemoveItem);
-            _apps = new ObservableCollection<UserApplication>(SettingsCollection.Default.UserApplications);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -112,7 +112,7 @@
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\UserApplication.cs" />
     <Compile Include="Models\KeyScope.cs" />
-    <Compile Include="Settings\SettingsCollection.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Functions\StartupManager.cs" />
     <Compile Include="ViewModels\AddApplicationViewModel.cs" />

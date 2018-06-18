@@ -27,10 +27,14 @@ namespace VirtualGameMode
             Loaded += MiniWindow_Loaded;
         }
 
+        public override void OnApplyTemplate()
+        {
+            this.EnableBlur();
+            base.OnApplyTemplate();
+        }
+
         private void MiniWindow_Loaded(object sender, RoutedEventArgs e)
         {
         }
-
-
     }
 }

@@ -16,7 +16,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VirtualGameMode.Functions;
 using VirtualGameMode.Models;
-using VirtualGameMode.Settings;
 
 namespace VirtualGameMode.Views
 {
@@ -29,7 +28,7 @@ namespace VirtualGameMode.Views
         {
             InitializeComponent();
             this.DataContext = this;
-            switch (SettingsCollection.Default.DisableWinKeyScope)
+            switch (VirtualGameMode.Settings.Default.DisableWinKeyScope)
             {
                 case KeyScope.AddedApplications:
                     AddedAppWin.IsChecked = true;
@@ -42,7 +41,7 @@ namespace VirtualGameMode.Views
                     break;
             }
 
-            switch (SettingsCollection.Default.DisableAltTabScope)
+            switch (VirtualGameMode.Settings.Default.DisableAltTabScope)
             {
                 case KeyScope.AddedApplications:
                     AddedAppAltTab.IsChecked = true;
@@ -55,7 +54,7 @@ namespace VirtualGameMode.Views
                     break;
             }
 
-            switch (SettingsCollection.Default.DisableAltF4Scope)
+            switch (VirtualGameMode.Settings.Default.DisableAltF4Scope)
             {
                 case KeyScope.AddedApplications:
                     AddedAppAltF4.IsChecked = true;
@@ -80,51 +79,51 @@ namespace VirtualGameMode.Views
 
         private void AddedAppWin_OnChecked(object sender, RoutedEventArgs e)
         {
-            SettingsCollection.Default.DisableWinKeyScope = KeyScope.AddedApplications;
+            VirtualGameMode.Settings.Default.DisableWinKeyScope = KeyScope.AddedApplications;
         }
 
         private void FullScreenWin_OnChecked(object sender, RoutedEventArgs e)
         {
-            SettingsCollection.Default.DisableWinKeyScope = KeyScope.FullScreenApplications;
+            VirtualGameMode.Settings.Default.DisableWinKeyScope = KeyScope.FullScreenApplications;
         }
 
         private void GlobalWin_OnChecked(object sender, RoutedEventArgs e)
         {
-            SettingsCollection.Default.DisableWinKeyScope = KeyScope.Global;
+            VirtualGameMode.Settings.Default.DisableWinKeyScope = KeyScope.Global;
         }
         #endregion
 
         #region AltTab Scope
         private void AddedAppAltTab_OnChecked(object sender, RoutedEventArgs e)
         {
-            SettingsCollection.Default.DisableAltTabScope = KeyScope.AddedApplications;
+            VirtualGameMode.Settings.Default.DisableAltTabScope = KeyScope.AddedApplications;
         }
 
         private void FullScreenAltTab_OnChecked(object sender, RoutedEventArgs e)
         {
-            SettingsCollection.Default.DisableAltTabScope = KeyScope.FullScreenApplications;
+            VirtualGameMode.Settings.Default.DisableAltTabScope = KeyScope.FullScreenApplications;
         }
 
         private void GlobalWinAltTab_OnChecked(object sender, RoutedEventArgs e)
         {
-            SettingsCollection.Default.DisableAltTabScope = KeyScope.Global;
+            VirtualGameMode.Settings.Default.DisableAltTabScope = KeyScope.Global;
         }
         #endregion
 
         #region AltF4 Scope
         private void AddedAppAltF4_OnChecked(object sender, RoutedEventArgs e)
         {
-            SettingsCollection.Default.DisableAltF4Scope = KeyScope.AddedApplications;
+            VirtualGameMode.Settings.Default.DisableAltF4Scope = KeyScope.AddedApplications;
         }
 
         private void FullScreenAltF4_OnChecked(object sender, RoutedEventArgs e)
         {
-            SettingsCollection.Default.DisableAltF4Scope = KeyScope.FullScreenApplications;
+            VirtualGameMode.Settings.Default.DisableAltF4Scope = KeyScope.FullScreenApplications;
         }
 
         private void GlobalAltF4_OnChecked(object sender, RoutedEventArgs e)
         {
-            SettingsCollection.Default.DisableAltF4Scope = KeyScope.Global;
+            VirtualGameMode.Settings.Default.DisableAltF4Scope = KeyScope.Global;
         }
         #endregion
 
