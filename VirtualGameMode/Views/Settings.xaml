@@ -27,7 +27,7 @@
                         <mah:ToggleSwitch 
                     x:Name="DisableAltTabSwitch"
                     Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" 
-                    OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static properties:Settings.Default}, Path=DisableAltTab}"></mah:ToggleSwitch>
+                    OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static settings:SettingsCollection.Default}, Path=DisableAltTab}"></mah:ToggleSwitch>
                         <StackPanel Margin="10 0 0 0" IsEnabled="{Binding ElementName=DisableAltTabSwitch, Path=IsChecked}">
                             <Label FontSize="14" Margin="0 10 0 10">Alt-Tab Disable Scope</Label>
                             <RadioButton x:Name="AddedAppAltTab" FontSize="14" Margin="0 4 0 4" GroupName="tabhookscope" Checked="AddedAppAltTab_OnChecked">Added Applications</RadioButton>
