@@ -59,13 +59,36 @@ namespace VirtualGameMode.Functions
                 if (File.Exists(exe) && fileName != null && !blacklist.Contains(fileName) && !AlreadyAdded(exe))
                 {
                     FileVersionInfo info = FileVersionInfo.GetVersionInfo(Path.GetFullPath(exe));
-                    return new UserApplication() { Name = info.ProductName, ExePath = exe };
+                    return new UserApplication() { Name = GetNameFromInfo(info), ExePath = exe };
                 }
                 else
                 {
                     return null;
                 }
             }).Where(x => x != null);        
+        }
+
+        private static string GetNameFromInfo(FileVersionInfo info)
+        {
+            string potential;
+            if (!String.IsNullOrEmpty(info.FileDescription))
+            {
+                potential = info.FileDescription;
+            } else if (!String.IsNullOrEmpty(info.ProductName))
+            {
+                potential = info.ProductName;
+            }
+            else
+            {
+                potential = Path.GetFileNameWithoutExtension(info.FileName);
+            }
+
+            if (potential.EndsWith(".exe"))
+            {
+                return potential.Substring(0, potential.Length - 4);
+            }
+
+            return potential;
         }
     }
 }
