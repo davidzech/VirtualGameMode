@@ -106,15 +106,17 @@
     <Compile Include="Dialogs\AddApplicationDialog.xaml.cs">
       <DependentUpon>AddApplicationDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Functions\WindowEnumerator.cs" />
-    <Compile Include="Functions\GameModeHook.cs" />
+    <Compile Include="Utilities\TaskbarPosition.cs" />
+    <Compile Include="Utilities\WindowEnumerator.cs" />
+    <Compile Include="Utilities\GameModeHook.cs" />
     <Compile Include="Models\EventTextWriter.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\UserApplication.cs" />
     <Compile Include="Models\KeyScope.cs" />
+    <Compile Include="Utilities\NotifyIconPosition.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Functions\StartupManager.cs" />
+    <Compile Include="Utilities\StartupManager.cs" />
     <Compile Include="ViewModels\AddApplicationViewModel.cs" />
     <Compile Include="ViewModels\ApplicationsViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -166,7 +168,7 @@
     <Compile Include="MiniWindow.xaml.cs">
       <DependentUpon>MiniWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Functions\Native.cs" />
+    <Compile Include="Utilities\Native.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

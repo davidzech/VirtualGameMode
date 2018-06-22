@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using VirtualGameMode.Annotations;
 using VirtualGameMode.Commands;
-using VirtualGameMode.Functions;
 using VirtualGameMode.Models;
+using VirtualGameMode.Utilities;
 
 namespace VirtualGameMode.ViewModels
 {

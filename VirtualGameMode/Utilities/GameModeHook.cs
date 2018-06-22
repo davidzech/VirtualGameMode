@@ -4,10 +4,10 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Input;
 using VirtualGameMode.Models;
-using VK = VirtualGameMode.Functions.Native.VK;
-using WM = VirtualGameMode.Functions.Native.WM;
+using VK = VirtualGameMode.Utilities.Native.VK;
+using WM = VirtualGameMode.Utilities.Native.WM;
 
-namespace VirtualGameMode.Functions
+namespace VirtualGameMode.Utilities
 {
     public static class GameModeHook
     {

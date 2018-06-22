@@ -12,29 +12,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Shell;
+using VirtualGameMode.ViewModels;
 
 namespace VirtualGameMode
 {
     /// <summary>
     /// Interaction logic for MiniWindow.xaml
     /// </summary>
-    public partial class MiniWindow
+    public partial class MiniWindow : Window
     {
 
         public MiniWindow()
         {
             InitializeComponent();
-            Loaded += MiniWindow_Loaded;
+            MainWindowViewModel vm = (MainWindowViewModel)Application.Current.MainWindow?.DataContext;
+            DataContext = vm;
         }
 
         public override void OnApplyTemplate()
         {
             this.EnableBlur();
             base.OnApplyTemplate();
-        }
-
-        private void MiniWindow_Loaded(object sender, RoutedEventArgs e)
-        {
         }
     }
 }

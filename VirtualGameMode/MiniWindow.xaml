@@ -4,11 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VirtualGameMode"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="MiniWindow" Height="450" Width="300" AllowsTransparency="True" Background="Transparent" WindowStyle="None">
-    <Grid x:Name="root" Background="#88EEEEEE">
+        ShowInTaskbar="False"
+        Title="MiniWindow" Height="300" Width="200" Background="#88000000" AllowsTransparency="True" WindowStyle="None"
+        WindowStartupLocation="Manual" Topmost="True"
+        Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
+    <Grid  Margin="10">
         <StackPanel>
-
+            <Label FontSize="24" Padding="0 10 0 10">Game Mode</Label>
+            <mah:ToggleSwitch x:Name="GameModeSwitch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding GameModeOn}"></mah:ToggleSwitch>
+            <Label FontSize="16" Padding="0 10 0 10">Disable Windows Key</Label>
+            <mah:ToggleSwitch x:Name="DisableWinSwitch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static local:Settings.Default}, Path=DisableWinKey}"></mah:ToggleSwitch>
+            <Label  FontSize="16" Padding="0 10 0 10">Disable Alt-Tab</Label>
+            <mah:ToggleSwitch x:Name="DisableAltTabSwitch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltTab}"></mah:ToggleSwitch>
+            <Label  FontSize="16" Padding="0 10 0 10">Disable Alt-F4</Label>
+            <mah:ToggleSwitch x:Name="DisableAltF4Switch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltF4}"></mah:ToggleSwitch>
         </StackPanel>
     </Grid>
 </Window>

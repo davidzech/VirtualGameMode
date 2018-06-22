@@ -20,12 +20,13 @@ namespace VirtualGameMode.Views
     /// <summary>
     /// Interaction logic for Applications.xaml
     /// </summary>
-    public partial class Applications : UserControl
+    public partial class Applications
     {
         public Applications()
         {
             InitializeComponent();
             // delay until loaded so we don't change stuff before the UI is loaded
+
             this.DataContext = new ApplicationsViewModel(DialogCoordinator.Instance);
         }
     }

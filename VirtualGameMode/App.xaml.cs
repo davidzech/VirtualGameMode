@@ -7,8 +7,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
-using VirtualGameMode.Functions;
 using VirtualGameMode.Models;
+using VirtualGameMode.Utilities;
 using Console = System.Console;
 
 namespace VirtualGameMode

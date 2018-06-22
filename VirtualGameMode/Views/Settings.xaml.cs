@@ -14,8 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using VirtualGameMode.Functions;
 using VirtualGameMode.Models;
+using VirtualGameMode.Utilities;
 
 namespace VirtualGameMode.Views
 {

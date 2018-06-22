@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace VirtualGameMode.Functions
+namespace VirtualGameMode.Utilities
 {
     public class Native
     {
@@ -29,6 +26,11 @@ namespace VirtualGameMode.Functions
             KEYUP = 0x101,
             SYSKEYDOWN = 0x104,
             SYSKEYUP = 0x105
+        }
+
+        public enum ABM
+        {
+            GetTaskBarPos = 0x5
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -314,5 +316,36 @@ namespace VirtualGameMode.Functions
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool IsWindowVisible(IntPtr hWnd);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct NOTIFYICONIDENTIFIER
+        {
+            public int cbSize;
+            public IntPtr hWnd;
+            public int uID;
+            public Guid guidItem;
+        }
+
+        [DllImport("shell32.dll", SetLastError = true)]
+        public static extern int Shell_NotifyIconGetRect([In]ref NOTIFYICONIDENTIFIER identifier, [Out]out RectStruct iconLocation);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct APPBARDATA
+        {
+            public int cbSize; // initialize this field using: Marshal.SizeOf(typeof(APPBARDATA));
+            public IntPtr hWnd;
+            public uint uCallbackMessage;
+            public uint uEdge;
+            public RectStruct rc;
+            public int lParam;
+        }
+
+
+        [DllImport("shell32.dll")]
+        public static extern IntPtr SHAppBarMessage(ABM dwMessage,
+            [In] ref APPBARDATA pData);
     }
 }
