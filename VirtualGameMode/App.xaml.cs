@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using VirtualGameMode.Models;
@@ -18,9 +19,16 @@ namespace VirtualGameMode
     /// </summary>
     public partial class App : Application
     {
+        private Mutex _mutex;
         public App()
         {
-            this.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            ShutdownMode = ShutdownMode.OnMainWindowClose;
+            _mutex = new Mutex(true, "VirtualGameModeMutex", out bool newlyCreated);
+            if (!newlyCreated)
+            {
+                Application.Current.Shutdown();
+            }
+
             StartupManager.SyncStartupKey();            
         }
 

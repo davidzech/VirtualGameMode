@@ -127,14 +127,14 @@ namespace VirtualGameMode
 
         private void TrayIcon_DoubleClick(object sender, EventArgs e)
         {
-            if (IsVisible)
+            if (Visibility != Visibility.Visible)
             {
-                this.Show();
-                this.WindowState = WindowState.Normal;
+                Show();
+                WindowState = WindowState.Normal;
             }
             else
             {
-                this.Hide();
+                Hide();
                 WindowState = WindowState.Minimized;
             }
         }
