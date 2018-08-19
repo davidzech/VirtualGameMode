@@ -18,6 +18,7 @@ namespace VirtualGameMode.Utilities
             F4 = 0x73,
             LWIN = 0x5B,
             RWIN = 0x5C,
+            Space = 0x20
         }
 
         public enum WM : Int32

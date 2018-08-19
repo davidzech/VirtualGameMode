@@ -20,6 +20,8 @@
             <mah:ToggleSwitch x:Name="DisableAltTabSwitch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltTab}"></mah:ToggleSwitch>
             <Label  FontSize="16" Padding="0 10 0 10">Disable Alt-F4</Label>
             <mah:ToggleSwitch x:Name="DisableAltF4Switch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltF4}"></mah:ToggleSwitch>
+            <Label FontSize="16" Padding="0 10 0 10">Disable Alt-Space</Label>
+            <mah:ToggleSwitch x:Name="DisableAltSpaceSwitch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltSpace}"></mah:ToggleSwitch>
         </StackPanel>
     </Grid>
 </Window>

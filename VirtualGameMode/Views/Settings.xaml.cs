@@ -132,5 +132,20 @@ namespace VirtualGameMode.Views
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
+
+        private void AddedAppAltSpace_OnChecked(object sender, RoutedEventArgs e)
+        {
+            VirtualGameMode.Settings.Default.DisableAltSpaceScope = KeyScope.AddedApplications;
+        }
+
+        private void FullScreenAltSpace_OnChecked(object sender, RoutedEventArgs e)
+        {
+            VirtualGameMode.Settings.Default.DisableAltSpaceScope = KeyScope.FullScreenApplications;
+        }
+
+        private void GlobalAltSpace_OnChecked(object sender, RoutedEventArgs e)
+        {
+            VirtualGameMode.Settings.Default.DisableAltSpaceScope = KeyScope.Global;
+        }
     }
 }

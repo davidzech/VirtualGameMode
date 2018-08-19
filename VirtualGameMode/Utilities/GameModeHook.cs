@@ -73,6 +73,15 @@ namespace VirtualGameMode.Utilities
                 }
             }
 
+            if (Settings.Default.DisableAltSpace && IsValidScopeForSetting(Settings.Default.DisableAltSpaceScope))
+            {
+                if (kb.vkCode == VK.Space && alt)
+                {
+                    Console.WriteLine("Alt-Space caught");
+                    return 1;
+                }
+            }
+
             if (Settings.Default.DisableWinKey && IsValidScopeForSetting(Settings.Default.DisableWinKeyScope))
             {
                 if (kb.vkCode == VK.LWIN || kb.vkCode == VK.RWIN)

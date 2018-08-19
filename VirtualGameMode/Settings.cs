@@ -132,6 +132,36 @@ namespace VirtualGameMode
             }
         }
 
+        private bool _disableAltSpace;
+
+        public bool DisableAltSpace
+        {
+            get => _disableAltSpace;
+            set
+            {
+                if (_disableAltSpace != value)
+                {
+                    _disableAltSpace = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private KeyScope _disableAltSpaceScope;
+
+        public KeyScope DisableAltSpaceScope
+        {
+            get => _disableAltSpaceScope;
+            set
+            {
+                if (_disableAltSpaceScope != value)
+                {
+                    _disableAltSpaceScope = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private bool _launchOnStartup;
 
         public bool LaunchOnStartup
