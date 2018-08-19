@@ -66,6 +66,19 @@ namespace VirtualGameMode.Views
                     GlobalAltF4.IsChecked = true;
                     break;
             }
+
+            switch (VirtualGameMode.Settings.Default.DisableAltSpaceScope)
+            {
+                case KeyScope.AddedApplications:
+                    AddedAppAltSpace.IsChecked = true;
+                    break;
+                case KeyScope.FullScreenApplications:
+                    FullScreenAltSpace.IsChecked = true;
+                    break;
+                case KeyScope.Global:
+                    GlobalAltSpace.IsChecked = true;
+                    break;
+            }
         }
 
         public string ApplicationVersion => "Version " + Assembly.GetEntryAssembly().GetName().Version;

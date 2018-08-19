@@ -7,7 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         ShowInTaskbar="False"
-        Title="MiniWindow" Height="300" Width="200" Background="#88000000" AllowsTransparency="True" WindowStyle="None"
+        Title="MiniWindow" Height="340" Width="200" Background="#88000000" AllowsTransparency="True" WindowStyle="None"
         WindowStartupLocation="Manual" Topmost="True"
         Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
     <Grid  Margin="10">
