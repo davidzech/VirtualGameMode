@@ -26,6 +26,7 @@ namespace VirtualGameMode
             _mutex = new Mutex(true, "VirtualGameModeMutex", out bool newlyCreated);
             if (!newlyCreated)
             {
+                MessageBox.Show("Another instance of VirtualGameMode is already running, terminating this one.");
                 Application.Current.Shutdown();
             }
 
