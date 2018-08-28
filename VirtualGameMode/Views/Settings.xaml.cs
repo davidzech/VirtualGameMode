@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DesktopBridge;
 using VirtualGameMode.Models;
 using VirtualGameMode.Utilities;
 
@@ -81,7 +82,9 @@ namespace VirtualGameMode.Views
             }
         }
 
-        public string ApplicationVersion => "Version " + Assembly.GetEntryAssembly().GetName().Version;
+        private static readonly DesktopBridge.Helpers _bridge = new Helpers();
+
+        public string ApplicationVersion => $"Version {Assembly.GetEntryAssembly().GetName().Version}{(_bridge.IsRunningAsUwp() ? "- UWP" : "")}";
 
         private void ToggleSwitch_OnChecked(object sender, RoutedEventArgs e)
         {

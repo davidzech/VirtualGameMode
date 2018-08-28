@@ -134,7 +134,6 @@ namespace VirtualGameMode
             }
             else
             {
-                Hide();
                 WindowState = WindowState.Minimized;
             }
         }

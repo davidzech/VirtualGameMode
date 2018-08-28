@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using DesktopBridge;
+using Squirrel;
 using VirtualGameMode.Models;
 using VirtualGameMode.Utilities;
 using Console = System.Console;
@@ -30,7 +32,28 @@ namespace VirtualGameMode
                 Application.Current.Shutdown();
             }
 
-            StartupManager.SyncStartupKey();            
+            StartupManager.SyncStartupKey();         
+            DesktopBridge.Helpers _bridge = new Helpers();
+            if (!_bridge.IsRunningAsUwp())
+            {
+#if DEBUG
+#else
+                CheckForUpdates();
+#endif
+            }
+        }
+
+        private async void CheckForUpdates()
+        {
+#if DEBUG
+            string path = "C:\\Users\\david\\source\\repos\\VirtualGameMode\\VirtualGameMode\\bin\\Release";
+#else
+            string path = "https://zech.io";
+#endif
+            using (var um = new UpdateManager(path))
+            {
+                await um.UpdateApp();
+            }
         }
 
         private void EnableDebugPrivileges()
