@@ -9,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using DesktopBridge;
-using Squirrel;
 using VirtualGameMode.Models;
 using VirtualGameMode.Utilities;
 using Console = System.Console;
@@ -45,15 +44,6 @@ namespace VirtualGameMode
 
         private async void CheckForUpdates()
         {
-#if DEBUG
-            string path = "C:\\Users\\david\\source\\repos\\VirtualGameMode\\VirtualGameMode\\bin\\Release";
-#else
-            string path = "https://zech.io";
-#endif
-            using (var um = new UpdateManager(path))
-            {
-                await um.UpdateApp();
-            }
         }
 
         private void EnableDebugPrivileges()

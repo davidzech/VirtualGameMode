@@ -17,7 +17,7 @@ namespace VirtualGameMode.ViewModels
         {
             Logger.Default.StdOutWriter.LineWritten += (sender, args) =>
             {
-                var time = DateTime.Now.ToString("[HH:mm] ");
+                var time = DateTime.Now.ToString("[HH:mm:ss] ");
                 _textList.AddLast(time + args.Line);
                 if (_textList.Count > _maxLog)
                 {

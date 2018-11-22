@@ -22,6 +22,7 @@
                      Text="{Binding Text}"
                      Foreground="DarkGray"
                      BorderBrush="DarkGray"
+                     TextChanged="TextBox_TextChanged"
                      mah:ControlsHelper.MouseOverBorderBrush="DarkGray"
                      mah:ControlsHelper.FocusBorderBrush="DarkGray"></TextBox>
         </TabItem>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -18,7 +19,9 @@ namespace VirtualGameMode.Utilities
             _hook = Native.SetWindowsHookEx(Native.WH_KEYBOARD_LL, Hookfn, IntPtr.Zero, 0);
         }
 
-        private static bool _lAltPressed, _rAltPressed;
+        private static bool _lAltPressed, _rAltPressed, _f4Pressed;
+        private static Stopwatch _stopwatch = Stopwatch.StartNew();
+        private static long _lastAltPress;
         private static int KeyboardProc(int nCode, int wParam, IntPtr lParam)
         {
             if (nCode < 0 || nCode != Native.HC_ACTION)
@@ -32,10 +35,16 @@ namespace VirtualGameMode.Utilities
                     if (kb.vkCode == VK.LMENU)
                     {                        
                         _lAltPressed = true;
+                        _lastAltPress = _stopwatch.ElapsedMilliseconds;
                     }
                     else if (kb.vkCode == VK.RMENU)
                     {
                         _rAltPressed = true;
+                        _lastAltPress = _stopwatch.ElapsedMilliseconds;
+                    }
+                    else if (kb.vkCode == VK.F4)
+                    {
+                        _f4Pressed = true;
                     }
 
                     break;
@@ -43,21 +52,30 @@ namespace VirtualGameMode.Utilities
                 case WM.SYSKEYUP:
                     if (kb.vkCode == VK.LMENU)
                     {
-                        _lAltPressed = false;
+                        _lAltPressed = false;                        
                     }
                     else if (kb.vkCode == VK.RMENU)
                     {
-                        _rAltPressed = false;
+                        _rAltPressed = false;                        
                     }
-
+                    else if (kb.vkCode == VK.F4)
+                    {
+                        _f4Pressed = false;
+                    }
                     break;
             }
             bool alt = _lAltPressed || _rAltPressed || Keyboard.GetKeyStates(Key.LeftAlt) == KeyStates.Down ||
-                       (Keyboard.GetKeyStates(Key.RightAlt) == KeyStates.Down);            
+                       (Keyboard.GetKeyStates(Key.RightAlt) == KeyStates.Down);
+            bool f4 = _f4Pressed || Keyboard.GetKeyStates(Key.F4) == KeyStates.Down;
 
             if (Settings.Default.DisableAltF4 && IsValidScopeForSetting(Settings.Default.DisableAltF4Scope))
-            {
-                if (kb.vkCode == VK.F4 && alt)
+            { 
+                if (kb.vkCode == VK.F4 && _stopwatch.ElapsedMilliseconds - _lastAltPress < 250)
+                {
+                    Console.WriteLine("Time Based Alt-F4 caught");
+                    return 1;
+                }
+                if ((kb.vkCode == VK.F4 && alt))
                 {
                     Console.WriteLine("Alt-F4 caught");
                     return 1;

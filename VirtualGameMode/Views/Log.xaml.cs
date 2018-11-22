@@ -24,5 +24,11 @@ namespace VirtualGameMode.Views
         {
             InitializeComponent();
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var tb = sender as TextBox;
+            tb?.ScrollToEnd();
+        }
     }
 }
