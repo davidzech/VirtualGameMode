@@ -52,11 +52,13 @@ namespace VirtualGameMode.Utilities
                 case WM.SYSKEYUP:
                     if (kb.vkCode == VK.LMENU)
                     {
-                        _lAltPressed = false;                        
+                        _lAltPressed = false;
+                        _lastAltPress = _stopwatch.ElapsedMilliseconds;
                     }
                     else if (kb.vkCode == VK.RMENU)
                     {
-                        _rAltPressed = false;                        
+                        _rAltPressed = false;
+                        _lastAltPress = _stopwatch.ElapsedMilliseconds;
                     }
                     else if (kb.vkCode == VK.F4)
                     {
@@ -70,7 +72,7 @@ namespace VirtualGameMode.Utilities
 
             if (Settings.Default.DisableAltF4 && IsValidScopeForSetting(Settings.Default.DisableAltF4Scope))
             { 
-                if (kb.vkCode == VK.F4 && _stopwatch.ElapsedMilliseconds - _lastAltPress < 250)
+                if (kb.vkCode == VK.F4 && _stopwatch.ElapsedMilliseconds - _lastAltPress < 500)
                 {
                     Console.WriteLine("Time Based Alt-F4 caught");
                     return 1;
