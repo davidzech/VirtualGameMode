@@ -36,7 +36,8 @@ namespace VirtualGameMode.ViewModels
 
         public MainWindowViewModel()
         {
-            this.GameModeOn = Settings.Default.AutoGameMode;
+            GameModeOn = Settings.Default.AutoGameMode;
+            AudioWatch.Start();
         }
 
 
