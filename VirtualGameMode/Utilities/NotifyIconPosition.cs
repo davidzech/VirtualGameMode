@@ -21,5 +21,10 @@ namespace VirtualGameMode.Utilities
             Native.Shell_NotifyIconGetRect(ref identifier, out var rect);
             return Rectangle.FromLTRB(rect.Left, rect.Top, rect.Right, rect.Bottom);
         }
+
+        public static Rectangle GetRect(this NotifyIcon icon)
+        {
+            return GetNotifyIconPosition(icon);
+        }
     }
 }

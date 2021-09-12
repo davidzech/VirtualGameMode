@@ -16,6 +16,7 @@ using Brushes = System.Windows.Media.Brushes;
 using Control = System.Windows.Controls.Control;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
 using System.Windows.Media;
+using System.Windows.Interop;
 
 namespace VirtualGameMode
 {
@@ -85,9 +86,17 @@ namespace VirtualGameMode
             {
                 if (!_iconDeactivatedWithClick)
                 {
+                    Matrix transform;
 
+                    using (var src = new HwndSource(new HwndSourceParameters()))
+                    {
+                        transform = src.CompositionTarget.TransformFromDevice;
+                    }
+
+                    var rect = _trayIcon.GetRect();
+                    double iconMid = (rect.Left + (rect.Width / 2.0)) * transform.M11;
                     // calculate where to put
-                    var xPadding = 5.0;
+                    var xPadding = 0.0;
                     (Alignment align, (double left, double top, double right, double bottom)) = TaskbarPosition.GetTaskbarPosition();
                     double height = bottom - top;
                     double width = right - left;
@@ -96,7 +105,7 @@ namespace VirtualGameMode
                         case Alignment.BOTTOM:
                             // place on bottom right
                             _mini.Top = bottom - _mini.Height - height;
-                            _mini.Left = right - _mini.Width - xPadding;
+                            _mini.Left = iconMid - (_mini.Width / 2.0);
                             break;
                         case Alignment.LEFT:
                             // place on bottom left
@@ -111,7 +120,7 @@ namespace VirtualGameMode
                         case Alignment.TOP:
                             // place on top right
                             _mini.Top = bottom;
-                            _mini.Left = right - _mini.Width + xPadding;
+                            _mini.Left = iconMid - (_mini.Width / 2.0); 
                             break;
                     }
                     _mini.Show();
@@ -124,7 +133,7 @@ namespace VirtualGameMode
         private bool _iconDeactivatedWithClick;
         private void MiniOnDeactivated(object sender, EventArgs e)
         {
-            Rectangle rect = NotifyIconPosition.GetNotifyIconPosition(_trayIcon);
+            Rectangle rect = _trayIcon.GetRect();
             if (rect.Contains(System.Windows.Forms.Cursor.Position))
                 _iconDeactivatedWithClick = true;
             _mini.Hide();
