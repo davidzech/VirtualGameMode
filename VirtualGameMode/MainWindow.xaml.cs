@@ -15,6 +15,7 @@ using Brush = System.Windows.Media.Brush;
 using Brushes = System.Windows.Media.Brushes;
 using Control = System.Windows.Controls.Control;
 using MouseEventArgs = System.Windows.Forms.MouseEventArgs;
+using System.Windows.Media;
 
 namespace VirtualGameMode
 {
@@ -84,29 +85,33 @@ namespace VirtualGameMode
             {
                 if (!_iconDeactivatedWithClick)
                 {
+
                     // calculate where to put
-                    (Alignment align, Rectangle rect) = TaskbarPosition.GetTaskbarPosition();
+                    var xPadding = 5.0;
+                    (Alignment align, (double left, double top, double right, double bottom)) = TaskbarPosition.GetTaskbarPosition();
+                    double height = bottom - top;
+                    double width = right - left;
                     switch (align)
                     {
                         case Alignment.BOTTOM:
                             // place on bottom right
-                            _mini.Top = rect.Bottom - _mini.Height - rect.Height;
-                            _mini.Left = rect.Right - _mini.Width;
+                            _mini.Top = bottom - _mini.Height - height;
+                            _mini.Left = right - _mini.Width - xPadding;
                             break;
                         case Alignment.LEFT:
                             // place on bottom left
-                            _mini.Top = rect.Bottom - _mini.Height;
-                            _mini.Left = rect.Left + rect.Width;
+                            _mini.Top = bottom - _mini.Height;
+                            _mini.Left = left + width + xPadding;
                             break;
                         case Alignment.RIGHT:
                             // place on bottom right, but down more
-                            _mini.Top = rect.Bottom - _mini.Height;
-                            _mini.Left = rect.Right - _mini.Width - rect.Width;
+                            _mini.Top = bottom - _mini.Height;
+                            _mini.Left = right - _mini.Width - width - xPadding;
                             break;
                         case Alignment.TOP:
                             // place on top right
-                            _mini.Top = rect.Bottom;
-                            _mini.Left = rect.Right - _mini.Width;
+                            _mini.Top = bottom;
+                            _mini.Left = right - _mini.Width + xPadding;
                             break;
                     }
                     _mini.Show();
