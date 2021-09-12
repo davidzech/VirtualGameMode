@@ -29,6 +29,7 @@ namespace VirtualGameMode.Views
         {
             InitializeComponent();
             this.DataContext = this;
+            VirtualGameMode.Settings.Default.PropertyChanged += Default_PropertyChanged;
             switch (VirtualGameMode.Settings.Default.DisableWinKeyScope)
             {
                 case KeyScope.AddedApplications:
@@ -80,6 +81,11 @@ namespace VirtualGameMode.Views
                     GlobalAltSpace.IsChecked = true;
                     break;
             }
+        }
+
+        private void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            VirtualGameMode.Settings.Default.Save();
         }
 
         private static readonly DesktopBridge.Helpers _bridge = new Helpers();
