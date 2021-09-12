@@ -31,6 +31,8 @@ namespace VirtualGameMode
                 Application.Current.Shutdown();
             }
 
+            this.DispatcherUnhandledException += App_DispatcherUnhandledException;
+
             StartupManager.SyncStartupKey();         
             DesktopBridge.Helpers _bridge = new Helpers();
             if (!_bridge.IsRunningAsUwp())
@@ -42,9 +44,16 @@ namespace VirtualGameMode
             }
         }
 
-        private async void CheckForUpdates()
+        private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.ToString());
+        }
+
+#if DEBUG
+        private void CheckForUpdates()
         {
         }
+#endif
 
         private void EnableDebugPrivileges()
         {
