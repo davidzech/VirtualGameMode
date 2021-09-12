@@ -104,7 +104,7 @@ namespace VirtualGameMode
                     {
                         case Alignment.BOTTOM:
                             // place on bottom right
-                            _mini.Top = bottom - _mini.Height - height;
+                            _mini.Top = (rect.Top * transform.M22) - _mini.Height;
                             _mini.Left = iconMid - (_mini.Width / 2.0);
                             break;
                         case Alignment.LEFT:
@@ -119,7 +119,7 @@ namespace VirtualGameMode
                             break;
                         case Alignment.TOP:
                             // place on top right
-                            _mini.Top = bottom;
+                            _mini.Top = (rect.Bottom * transform.M22);
                             _mini.Left = iconMid - (_mini.Width / 2.0); 
                             break;
                     }
