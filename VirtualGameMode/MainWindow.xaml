@@ -5,49 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VirtualGameMode"
         xmlns:views="clr-namespace:VirtualGameMode.Views"                 
-        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:vm="clr-namespace:VirtualGameMode.ViewModels"
-         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-         xmlns:behaviours="clr-namespace:MahApps.Metro.Behaviours;assembly=MahApps.Metro"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Height="620" Width="1000" 
                  MinHeight="620"
                  MinWidth="500"
-                 WindowTitleBrush="{DynamicResource TransparentWhiteBrush}"
-                 NonActiveWindowTitleBrush="{DynamicResource TransparentWhiteBrush}"
-                 GlowBrush="{DynamicResource AccentColorBrush}"
-                 BorderBrush="{DynamicResource AccentColorBrush}"
+                 WindowTitleBrush="{DynamicResource MahApps.Brushes.Transparent}"
+                 NonActiveWindowTitleBrush="{DynamicResource MahApps.Brushes.Transparent}"
+                 GlowBrush="{DynamicResource MahApps.Brushes.AccentBase}"
+                 BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                  NonActiveGlowBrush="#3f3f46"
                  NonActiveBorderBrush="Transparent"
                  TitleCharacterCasing="Normal"
                  Title="Virtual Game Mode"
                  ShowDialogsOverTitleBar="True"
-                 TitlebarHeight="30"
-                 Closing="MainWindow_OnClosing" d:DataContext="{d:DesignInstance vm:MainWindowViewModel}">
+                 TitleBarHeight="30"
+                 Closing="MainWindow_OnClosing" RightWindowCommandsOverlayBehavior="HiddenTitleBar">
     <mah:MetroWindow.WindowButtonCommands>
-        <mah:WindowButtonCommands Template="{DynamicResource MahApps.Metro.Templates.WindowButtonCommands.Win10}"  />
+        <mah:WindowButtonCommands Template="{DynamicResource MahApps.Templates.WindowButtonCommands.Win10}"  />
     </mah:MetroWindow.WindowButtonCommands>
-    <mah:MetroWindow.RightWindowCommands>
-        <mah:WindowCommands>
-            <ToggleButton FontSize="14" x:Name="GameModeToggle" Content="Game Mode is Off" Foreground="LightGray"
-                          Background="Transparent" BorderBrush="Transparent" BorderThickness="0" IsChecked="{Binding GameModeOn}" Margin="0 0 4 0" Checked="GameModeToggle_OnChecked" Unchecked="GameModeToggle_OnUnchecked">
-            </ToggleButton>
-        </mah:WindowCommands>
-    </mah:MetroWindow.RightWindowCommands>
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>
             <TextBlock
                 FontSize="16"
                 FontWeight="Light"
-                Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}" >
+                Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}" Margin="14 4 1 0">
                 <TextBlock.Style>
                     <Style>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding IsPaneOpen, ElementName=HamburgerMenu}" Value="False">
-                                <Setter Property="TextBlock.Margin" Value="54 4 1 0"></Setter>
+                                <Setter Property="TextBlock.Visibility" Value="Hidden"></Setter>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsPaneOpen, ElementName=HamburgerMenu}" Value="True">
-                                <Setter Property="TextBlock.Margin" Value="8,4,1,0"></Setter>
+                                <Setter Property="TextBlock.Visibility" Value="Visible"></Setter>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
@@ -57,7 +49,6 @@
     </mah:MetroWindow.TitleTemplate>
     <mah:MetroWindow.Resources>
         <Style x:Key="HamburgerMenuCreatorsItemStyle"
-                   BasedOn="{StaticResource HamburgerMenuItemStyle}"
                    TargetType="{x:Type ListBoxItem}">
             <Setter Property="mah:ItemHelper.ActiveSelectionBackgroundBrush" Value="Transparent" />
             <Setter Property="mah:ItemHelper.ActiveSelectionForegroundBrush" Value="{DynamicResource AccentBaseColorBrush}" />
@@ -121,19 +112,18 @@
                                Foreground="White"
                                Text="{Binding Label}" />
                 </Grid>
-             </DataTemplate>
+            </DataTemplate>
         </Grid.Resources>
         <mah:HamburgerMenu x:Name="HamburgerMenu"
                            IsPaneOpen="True" DisplayMode="CompactInline" 
                            ItemTemplate="{StaticResource MenuItemTemplate}"
                            OptionsItemTemplate="{StaticResource OptionsMenuItemTemplate}"
-                           PaneBackground="Transparent"
                            ContentTransition="Left"
                            ItemInvoked="HamburgerMenu_OnItemInvoked"
                            OpenPaneLength="200"
-                           Style="{StaticResource HamburgerMenuCreatorsStyle}"
-                           ItemContainerStyle="{StaticResource HamburgerMenuCreatorsItemStyle}"
-                           SelectedIndex="0">
+                           Style="{StaticResource MahApps.Styles.HamburgerMenu.CreatorsUpdate}"
+                           SelectedIndex="0"
+                           PaneBackground="Transparent">
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
                     <mah:HamburgerMenuGlyphItem Glyph="" Label="Applications">
@@ -164,17 +154,21 @@
             <mah:HamburgerMenu.ContentTemplate>
                 <DataTemplate DataType="{x:Type mah:HamburgerMenuItem}">
                     <Grid x:Name="TheContentGrid">
-                        <Grid>
-                            <Rectangle Fill="#ff1E1E1E" IsHitTestVisible="False" Margin="0 -30 0 0 " ></Rectangle>
-                        </Grid>
-
-                        <ContentControl x:Name="TheContent"
+                        <Rectangle Fill="#ff1E1E1E" Margin="0 -30 0 0"  IsHitTestVisible="False"/>
+                        <mah:TransitioningContentControl x:Name="TheContent"
                                         Focusable="False"
                                         Foreground="{DynamicResource BlackBrush}"
-                                        Content="{Binding Tag}" />
+                                        Content="{Binding Tag, Mode=OneWay}" />
                     </Grid>
                 </DataTemplate>
             </mah:HamburgerMenu.ContentTemplate>
         </mah:HamburgerMenu>
     </Grid>
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands x:Name="winCommands">
+            <mah:ToggleSwitch  x:Name="GameModeToggle" OnContent="Enabled" OffContent="Disabled" Foreground="LightGray"
+                          Background="Transparent" BorderBrush="Transparent" BorderThickness="0" IsOn="{Binding GameModeOn}" Margin="0 0 -40 0" >
+            </mah:ToggleSwitch>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
 </mah:MetroWindow>

@@ -23,13 +23,12 @@ namespace VirtualGameMode
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow : MetroWindow
     {
         private readonly NotifyIcon _trayIcon;
         private readonly MiniWindow _mini;
         public MainWindow()
         {
-            InitializeComponent();
             this.DataContext = new MainWindowViewModel();
             using (var iconStream = Application
                 .GetResourceStream(new Uri("pack://application:,,,/VirtualGameMode;component/Resources/icon.ico"))
@@ -42,9 +41,9 @@ namespace VirtualGameMode
                 };
             }
             _trayIcon.DoubleClick += TrayIcon_DoubleClick;
-            var menuItemShow = new System.Windows.Forms.MenuItem()
+            var menuItemShow = new System.Windows.Forms.ToolStripMenuItem()
             {
-                Name =  "Show/Hide",
+                Name = "Show/Hide",
                 Text = Settings.Default.StartMinimized ? "Show" : "Minimize to tray"                
             };
             menuItemShow.Click += (sender, args) =>
@@ -59,16 +58,17 @@ namespace VirtualGameMode
                     this.WindowState = WindowState.Normal;
                 }
             };
-            var menuItemExit = new System.Windows.Forms.MenuItem()
+            var menuItemExit = new System.Windows.Forms.ToolStripMenuItem()
             {
                 Name = "Exit",
                 Text = "Exit"
             };
             menuItemExit.Click += (sender, args) => Application.Current.Shutdown();
-            var contextMenu = new System.Windows.Forms.ContextMenu(new []{menuItemShow});
-            contextMenu.MenuItems.Add("-");
-            contextMenu.MenuItems.Add(menuItemExit);
-            _trayIcon.ContextMenu = contextMenu;
+            var contextMenu = new System.Windows.Forms.ContextMenuStrip();
+            contextMenu.Items.Add(menuItemShow);
+            contextMenu.Items.Add("-");
+            contextMenu.Items.Add(menuItemExit);
+            _trayIcon.ContextMenuStrip = contextMenu;
             if (Settings.Default.StartMinimized)
             {
                 Hide();
@@ -77,6 +77,12 @@ namespace VirtualGameMode
             _mini = new MiniWindow();
             _mini.Deactivated += MiniOnDeactivated;
             _trayIcon.Click += TrayIconOnClick;
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, EventArgs e)
+        {
+            FixZOrdering();
         }
 
         private void TrayIconOnClick(object sender, EventArgs e)
@@ -176,11 +182,11 @@ namespace VirtualGameMode
             if (WindowState == WindowState.Minimized)
             {
                 this.Hide();
-                _trayIcon.ContextMenu.MenuItems[0].Text = "Show";
+                _trayIcon.ContextMenuStrip.Items[0].Text = "Show";
             }
             else
             {
-                _trayIcon.ContextMenu.MenuItems[0].Text = "Minimize to tray";
+                _trayIcon.ContextMenuStrip.Items[0].Text = "Minimize to tray";
                 this.Show();
             }
             base.OnStateChanged(e);
@@ -189,7 +195,7 @@ namespace VirtualGameMode
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             GameModeHook.RemoveHook();
-            Settings.Default.Save();           
+            Settings.Default.Save();         
         }
 
 
@@ -199,17 +205,11 @@ namespace VirtualGameMode
             this.HamburgerMenu.Content = e.InvokedItem;
         }
 
-        // not using styles here because it overrides the mahapps.metro style and thats a pain in the ass to sublcass
-        private void GameModeToggle_OnChecked(object sender, RoutedEventArgs e)
+        private void FixZOrdering()
         {
-            GameModeToggle.Foreground = (Brush)FindResource("AccentColorBrush");
-            GameModeToggle.Content = "Game Mode On";
-        }
-
-        private void GameModeToggle_OnUnchecked(object sender, RoutedEventArgs e)
-        {
-            GameModeToggle.Foreground = Brushes.White;
-            GameModeToggle.Content = "Game Mode Off";
+            var part = this.FindChild<ContentPresenterEx>("PART_RightWindowCommands");
+            var dockPanel = part.Parent as DockPanel;
+            System.Windows.Controls.Panel.SetZIndex(dockPanel, 1);
         }
     }
 }

@@ -11,8 +11,8 @@
     <UserControl.DataContext>
         <vm:LogViewModel></vm:LogViewModel>
     </UserControl.DataContext>
-    <TabControl Margin="10 0 10 10" Background="Transparent">
-        <TabItem mah:ControlsHelper.HeaderFontSize="22" Header="Output">
+    <TabControl Margin="10 0 10 10" Background="Transparent" Style="{DynamicResource MahApps.Styles.TabControl.Animated}">
+        <TabItem mah:HeaderedControlHelper.HeaderFontSize="28" Header="Output" FontFamily="{DynamicResource MahApps.Fonts.Family.Header}">
             <TextBox Background="Transparent"
                      Grid.Row="1"
                      TextWrapping="Wrap"
@@ -26,7 +26,7 @@
                      mah:ControlsHelper.MouseOverBorderBrush="DarkGray"
                      mah:ControlsHelper.FocusBorderBrush="DarkGray"></TextBox>
         </TabItem>
-        <TabItem mah:ControlsHelper.HeaderFontSize="22" Header="Error">
+        <TabItem mah:HeaderedControlHelper.HeaderFontSize="28" Header="Error" FontFamily="{DynamicResource MahApps.Fonts.Family.Header}">
             <TextBox Background="Transparent"
                      Grid.Row="1"
                      TextWrapping="Wrap"

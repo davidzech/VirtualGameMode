@@ -13,15 +13,15 @@
     <Grid  Margin="10">
         <StackPanel>
             <Label FontSize="24" Padding="0 10 0 10">Game Mode</Label>
-            <mah:ToggleSwitch x:Name="GameModeSwitch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding GameModeOn}"></mah:ToggleSwitch>
+            <mah:ToggleSwitch x:Name="GameModeSwitch"  OnContent="On" OffContent="Off" IsOn="{Binding GameModeOn}"></mah:ToggleSwitch>
             <Label FontSize="16" Padding="0 10 0 10">Disable Windows Key</Label>
-            <mah:ToggleSwitch x:Name="DisableWinSwitch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static local:Settings.Default}, Path=DisableWinKey}"></mah:ToggleSwitch>
+            <mah:ToggleSwitch x:Name="DisableWinSwitch"  OnContent="On" OffContent="Off" IsOn="{Binding Source={x:Static local:Settings.Default}, Path=DisableWinKey}"></mah:ToggleSwitch>
             <Label  FontSize="16" Padding="0 10 0 10">Disable Alt-Tab</Label>
-            <mah:ToggleSwitch x:Name="DisableAltTabSwitch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltTab}"></mah:ToggleSwitch>
+            <mah:ToggleSwitch x:Name="DisableAltTabSwitch"  OnContent="On" OffContent="Off" IsOn="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltTab}"></mah:ToggleSwitch>
             <Label  FontSize="16" Padding="0 10 0 10">Disable Alt-F4</Label>
-            <mah:ToggleSwitch x:Name="DisableAltF4Switch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltF4}"></mah:ToggleSwitch>
+            <mah:ToggleSwitch x:Name="DisableAltF4Switch" OnContent="On" OffContent="Off" IsOn="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltF4}"></mah:ToggleSwitch>
             <Label FontSize="16" Padding="0 10 0 10">Disable Alt-Space</Label>
-            <mah:ToggleSwitch x:Name="DisableAltSpaceSwitch" Style="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" OnLabel="On" OffLabel="Off" IsChecked="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltSpace}"></mah:ToggleSwitch>
+            <mah:ToggleSwitch x:Name="DisableAltSpaceSwitch" OnContent="On" OffContent="Off" IsOn="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltSpace}"></mah:ToggleSwitch>
         </StackPanel>
     </Grid>
 </Window>
