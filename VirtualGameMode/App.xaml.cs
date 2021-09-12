@@ -37,10 +37,7 @@ namespace VirtualGameMode
             DesktopBridge.Helpers _bridge = new Helpers();
             if (!_bridge.IsRunningAsUwp())
             {
-#if DEBUG
-#else
-                CheckForUpdates();
-#endif
+
             }
         }
 
@@ -49,11 +46,6 @@ namespace VirtualGameMode
             MessageBox.Show(e.ToString());
         }
 
-#if DEBUG
-        private void CheckForUpdates()
-        {
-        }
-#endif
 
         private void EnableDebugPrivileges()
         {

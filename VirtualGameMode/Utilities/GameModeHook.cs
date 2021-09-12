@@ -27,20 +27,23 @@ namespace VirtualGameMode.Utilities
             if (nCode < 0 || nCode != Native.HC_ACTION)
                 return Native.CallNextHookEx(0, nCode, new IntPtr(wParam), lParam);
 
+            bool sys = false;
             Native.KeyboardLowLevelHookStruct kb = Marshal.PtrToStructure<Native.KeyboardLowLevelHookStruct>(lParam);
             switch ((WM)wParam)
             {
-                case WM.KEYDOWN:
+
                 case WM.SYSKEYDOWN:
+                    sys = true;
+                    goto case WM.KEYDOWN;
+
+                case WM.KEYDOWN:
                     if (kb.vkCode == VK.LMENU)
                     {                        
                         _lAltPressed = true;
-                        _lastAltPress = _stopwatch.ElapsedMilliseconds;
                     }
                     else if (kb.vkCode == VK.RMENU)
                     {
                         _rAltPressed = true;
-                        _lastAltPress = _stopwatch.ElapsedMilliseconds;
                     }
                     else if (kb.vkCode == VK.F4)
                     {
@@ -48,17 +51,19 @@ namespace VirtualGameMode.Utilities
                     }
 
                     break;
-                case WM.KEYUP:
+
                 case WM.SYSKEYUP:
+                    sys = true;
+                    goto case WM.KEYUP;
+
+                case WM.KEYUP:
                     if (kb.vkCode == VK.LMENU)
                     {
-                        _lAltPressed = false;
-                        _lastAltPress = _stopwatch.ElapsedMilliseconds;
+                        _lAltPressed = false;                        
                     }
                     else if (kb.vkCode == VK.RMENU)
                     {
-                        _rAltPressed = false;
-                        _lastAltPress = _stopwatch.ElapsedMilliseconds;
+                        _rAltPressed = false;                        
                     }
                     else if (kb.vkCode == VK.F4)
                     {
@@ -66,17 +71,10 @@ namespace VirtualGameMode.Utilities
                     }
                     break;
             }
-            bool alt = _lAltPressed || _rAltPressed || Keyboard.GetKeyStates(Key.LeftAlt) == KeyStates.Down ||
-                       (Keyboard.GetKeyStates(Key.RightAlt) == KeyStates.Down);
-            bool f4 = _f4Pressed || Keyboard.GetKeyStates(Key.F4) == KeyStates.Down;
+            bool alt = _lAltPressed || _rAltPressed || sys;
 
             if (Settings.Default.DisableAltF4 && IsValidScopeForSetting(Settings.Default.DisableAltF4Scope))
             { 
-                if (kb.vkCode == VK.F4 && _stopwatch.ElapsedMilliseconds - _lastAltPress < 500)
-                {
-                    Console.WriteLine("Time Based Alt-F4 caught");
-                    return 1;
-                }
                 if ((kb.vkCode == VK.F4 && alt))
                 {
                     Console.WriteLine("Alt-F4 caught");
