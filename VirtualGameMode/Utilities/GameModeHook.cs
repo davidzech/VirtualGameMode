@@ -19,9 +19,7 @@ namespace VirtualGameMode.Utilities
             _hook = Native.SetWindowsHookEx(Native.WH_KEYBOARD_LL, Hookfn, IntPtr.Zero, 0);
         }
 
-        private static bool _lAltPressed, _rAltPressed, _f4Pressed;
-        private static Stopwatch _stopwatch = Stopwatch.StartNew();
-        private static long _lastAltPress;
+        private static bool _lAltPressed, _rAltPressed;
         private static int KeyboardProc(int nCode, int wParam, IntPtr lParam)
         {
             if (nCode < 0 || nCode != Native.HC_ACTION)
@@ -45,10 +43,6 @@ namespace VirtualGameMode.Utilities
                     {
                         _rAltPressed = true;
                     }
-                    else if (kb.vkCode == VK.F4)
-                    {
-                        _f4Pressed = true;
-                    }
 
                     break;
 
@@ -64,10 +58,6 @@ namespace VirtualGameMode.Utilities
                     else if (kb.vkCode == VK.RMENU)
                     {
                         _rAltPressed = false;                        
-                    }
-                    else if (kb.vkCode == VK.F4)
-                    {
-                        _f4Pressed = false;
                     }
                     break;
             }
