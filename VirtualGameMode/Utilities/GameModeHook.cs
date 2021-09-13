@@ -65,7 +65,7 @@ namespace VirtualGameMode.Utilities
 
             if (Settings.Default.DisableAltF4 && IsValidScopeForSetting(Settings.Default.DisableAltF4Scope))
             { 
-                if ((kb.vkCode == VK.F4 && alt))
+                if (kb.vkCode == VK.F4 && alt)
                 {
                     Console.WriteLine("Alt-F4 caught");
                     return 1;

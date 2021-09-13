@@ -28,17 +28,11 @@ namespace VirtualGameMode
             if (!newlyCreated)
             {
                 MessageBox.Show("Another instance of VirtualGameMode is already running, terminating this one.");
-                Application.Current.Shutdown();
+                Current.Shutdown();
             }
 
-            this.DispatcherUnhandledException += App_DispatcherUnhandledException;
-
-            StartupManager.SyncStartupKey();         
-            DesktopBridge.Helpers _bridge = new Helpers();
-            if (!_bridge.IsRunningAsUwp())
-            {
-
-            }
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
+      
         }
 
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
