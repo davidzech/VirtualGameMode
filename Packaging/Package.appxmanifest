@@ -42,15 +42,15 @@
         <uap:SplashScreen Image="Images\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap5:Extension
+        <desktop:Extension
                     Category="windows.startupTask"
-
+                    Executable="VirtualGameMode/VirtualGameMode.exe"
                     EntryPoint="Windows.FullTrustApplication">
-          <uap5:StartupTask
+          <desktop:StartupTask
             TaskId="VirtualGameMode"
             Enabled="false"
             DisplayName="VirtualGameMode" />
-        </uap5:Extension>
+        </desktop:Extension>
       </Extensions>
     </Application>
   </Applications>
