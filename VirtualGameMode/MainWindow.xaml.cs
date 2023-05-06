@@ -37,7 +37,7 @@ namespace VirtualGameMode
                 _trayIcon = new NotifyIcon()
                 {
                     Visible = true,
-                    Icon = new System.Drawing.Icon(iconStream)
+                    Icon = new Icon(iconStream)
                 };
             }
             _trayIcon.DoubleClick += TrayIcon_DoubleClick;
