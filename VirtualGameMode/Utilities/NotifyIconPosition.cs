@@ -11,10 +11,10 @@ namespace VirtualGameMode.Utilities
         {
             // obtain private field "id"
             // ReSharper disable once PossibleNullReferenceException
-            var id = (uint)icon.GetType().GetField("id", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(icon);
+            var id = (uint)icon.GetType().GetField("_id", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(icon);
             // ReSharper disable once PossibleNullReferenceException
             var hwnd = (NativeWindow) icon.GetType()
-                .GetField("window", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(icon);
+                .GetField("_window", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(icon);
 
             Native.NOTIFYICONIDENTIFIER identifier = new Native.NOTIFYICONIDENTIFIER() {cbSize = Marshal.SizeOf(typeof(Native.NOTIFYICONIDENTIFIER)),hWnd = hwnd.Handle, uID = (int)id};
 

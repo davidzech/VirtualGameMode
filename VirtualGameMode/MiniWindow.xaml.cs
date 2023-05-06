@@ -31,7 +31,6 @@ namespace VirtualGameMode
 
         public override void OnApplyTemplate()
         {
-            this.EnableBlur();
             base.OnApplyTemplate();
         }
     }
