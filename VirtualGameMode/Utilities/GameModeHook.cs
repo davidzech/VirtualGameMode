@@ -20,6 +20,9 @@ namespace VirtualGameMode.Utilities
         }
 
         private static bool _lAltPressed, _rAltPressed;
+
+        private static long _previousAltPress;
+
         private static int KeyboardProc(int nCode, int wParam, IntPtr lParam)
         {
             if (nCode < 0 || nCode != Native.HC_ACTION)
@@ -29,7 +32,6 @@ namespace VirtualGameMode.Utilities
             Native.KeyboardLowLevelHookStruct kb = Marshal.PtrToStructure<Native.KeyboardLowLevelHookStruct>(lParam);
             switch ((WM)wParam)
             {
-
                 case WM.SYSKEYDOWN:
                     sys = true;
                     goto case WM.KEYDOWN;
@@ -42,8 +44,9 @@ namespace VirtualGameMode.Utilities
                     else if (kb.vkCode == VK.RMENU)
                     {
                         _rAltPressed = true;
-                    }
 
+                    }
+                    _previousAltPress = DateTime.Now.Ticks;
                     break;
 
                 case WM.SYSKEYUP:
@@ -62,10 +65,12 @@ namespace VirtualGameMode.Utilities
                     break;
             }
             bool alt = _lAltPressed || _rAltPressed || sys;
+            long ticksSinceLastAlt = DateTime.Now.Ticks - _previousAltPress;
+            TimeSpan span = new TimeSpan(ticksSinceLastAlt);
 
             if (Settings.Default.DisableAltF4 && IsValidScopeForSetting(Settings.Default.DisableAltF4Scope))
             { 
-                if (kb.vkCode == VK.F4 && alt)
+                if (kb.vkCode == VK.F4 && (alt || (span.TotalSeconds < 2.0)))
                 {
                     Console.WriteLine("Alt-F4 caught");
                     return 1;
