@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30611.23
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirtualGameMode", "VirtualGameMode\VirtualGameMode.csproj", "{274671A3-BFD1-467E-A8F6-EE5B20024796}"
 EndProject
@@ -37,10 +37,10 @@ Global
 		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|ARM.Build.0 = Release|Any CPU
 		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|ARM64.ActiveCfg = Release|Any CPU
 		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|ARM64.Build.0 = Release|Any CPU
-		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|x64.ActiveCfg = Release|Any CPU
-		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|x64.Build.0 = Release|Any CPU
-		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|x86.ActiveCfg = Release|Any CPU
-		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|x86.Build.0 = Release|Any CPU
+		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|x64.ActiveCfg = Release|x64
+		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|x64.Build.0 = Release|x64
+		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|x86.ActiveCfg = Release|x86
+		{274671A3-BFD1-467E-A8F6-EE5B20024796}.Release|x86.Build.0 = Release|x86
 		{35FE63EF-3E4D-4972-8D89-586C2EDFCEE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{35FE63EF-3E4D-4972-8D89-586C2EDFCEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35FE63EF-3E4D-4972-8D89-586C2EDFCEE2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
