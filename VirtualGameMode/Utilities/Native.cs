@@ -14,11 +14,14 @@ namespace VirtualGameMode.Utilities
         {
             LMENU = 0xA4,
             RMENU = 0xA5,
-            Tab = 0x09,
+            TAB = 0x09,
             F4 = 0x73,
             LWIN = 0x5B,
             RWIN = 0x5C,
-            Space = 0x20
+            SPACE = 0x20,
+            ESCAPE = 0x1B,
+            RCONTROL = 0xA3,
+            RSHIFT = 0xA1
         }
 
         public enum WM : Int32

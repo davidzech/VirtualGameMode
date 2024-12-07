@@ -162,6 +162,36 @@ namespace VirtualGameMode
             }
         }
 
+        private bool _guardEscape;
+
+        public bool GuardEscape
+        {
+            get => _guardEscape;
+            set
+            {
+                if (_guardEscape != value)
+                {
+                    _guardEscape = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private KeyScope _guardEscapeScope;
+
+        public KeyScope GuardEscapeScope
+        {
+            get => _guardEscapeScope;
+            set
+            {
+                if (_guardEscapeScope != value)
+                {
+                    _guardEscapeScope = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private bool _launchOnStartup;
 
         public bool LaunchOnStartup

@@ -7,7 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         ShowInTaskbar="False"
-        Title="MiniWindow" Height="340" Width="200"  AllowsTransparency="True" WindowStyle="None"
+        Title="MiniWindow" Height="500" Width="200"  AllowsTransparency="True" WindowStyle="None"
         WindowStartupLocation="Manual" Topmost="True"
         Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsActive, Converter={StaticResource BooleanToVisibilityConverter}}">
     <Grid  Margin="10">
@@ -22,6 +22,8 @@
             <mah:ToggleSwitch x:Name="DisableAltF4Switch" OnContent="On" OffContent="Off" IsOn="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltF4}"></mah:ToggleSwitch>
             <Label FontSize="16" Padding="0 10 0 10">Disable Alt-Space</Label>
             <mah:ToggleSwitch x:Name="DisableAltSpaceSwitch" OnContent="On" OffContent="Off" IsOn="{Binding Source={x:Static local:Settings.Default}, Path=DisableAltSpace}"></mah:ToggleSwitch>
+            <Label FontSize="16" Padding="0 10 0 10">Gaurd Escape</Label>
+            <mah:ToggleSwitch x:Name="DisableGuardSwitch" OnContent="On" OffContent="Off" IsOn="{Binding Source={x:Static local:Settings.Default}, Path=GuardEscape}"></mah:ToggleSwitch>
         </StackPanel>
     </Grid>
 </Window>

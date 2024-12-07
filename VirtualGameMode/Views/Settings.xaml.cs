@@ -81,6 +81,19 @@ namespace VirtualGameMode.Views
                     GlobalAltSpace.IsChecked = true;
                     break;
             }
+
+            switch (VirtualGameMode.Settings.Default.GuardEscapeScope)
+            {
+                case KeyScope.AddedApplications:
+                    AddedAppEscape.IsChecked = true;
+                    break;
+                case KeyScope.FullScreenApplications:
+                    FullScreenEscape.IsChecked = true;
+                    break;
+                case KeyScope.Global:
+                    GlobalEscape.IsChecked = true;
+                    break;
+            }
         }
 
         private void Default_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -168,6 +181,20 @@ namespace VirtualGameMode.Views
         private void GlobalAltSpace_OnChecked(object sender, RoutedEventArgs e)
         {
             VirtualGameMode.Settings.Default.DisableAltSpaceScope = KeyScope.Global;
+        }
+
+        private void AddedAppEscape_OnChecked(object sender, RoutedEventArgs e)
+        {
+            VirtualGameMode.Settings.Default.GuardEscapeScope = KeyScope.AddedApplications;
+        }
+        private void FullScreenEscape_OnChecked(object sender, RoutedEventArgs e)
+        {
+            VirtualGameMode.Settings.Default.GuardEscapeScope = KeyScope.FullScreenApplications;
+        }
+
+        private void GlobalEscape_OnChecked(object sender, RoutedEventArgs e)
+        {
+            VirtualGameMode.Settings.Default.GuardEscapeScope = KeyScope.Global;
         }
     }
 }

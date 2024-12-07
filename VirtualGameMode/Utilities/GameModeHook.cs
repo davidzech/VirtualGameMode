@@ -19,7 +19,7 @@ namespace VirtualGameMode.Utilities
             _hook = Native.SetWindowsHookEx(Native.WH_KEYBOARD_LL, Hookfn, IntPtr.Zero, 0);
         }
 
-        private static bool _lAltPressed, _rAltPressed;
+        private static bool _lAltPressed, _rAltPressed, _rShiftPressed;
 
         private static long _previousAltPress;
 
@@ -37,16 +37,21 @@ namespace VirtualGameMode.Utilities
                     goto case WM.KEYDOWN;
 
                 case WM.KEYDOWN:
-                    if (kb.vkCode == VK.LMENU)
-                    {                        
-                        _lAltPressed = true;
-                        _previousAltPress = DateTime.Now.Ticks;
-                    }
-                    else if (kb.vkCode == VK.RMENU)
+                    switch (kb.vkCode)
                     {
-                        _rAltPressed = true;
-                        _previousAltPress = DateTime.Now.Ticks;
+                        case VK.LMENU:
+                            _lAltPressed = true;
+                            _previousAltPress = DateTime.Now.Ticks;
+                            break;
 
+                        case VK.RMENU:
+                            _rAltPressed = true;
+                            _previousAltPress = DateTime.Now.Ticks;
+                            break;
+
+                        case VK.RSHIFT:
+                            _rShiftPressed = true;
+                            break;
                     }
                     break;
 
@@ -55,13 +60,19 @@ namespace VirtualGameMode.Utilities
                     goto case WM.KEYUP;
 
                 case WM.KEYUP:
-                    if (kb.vkCode == VK.LMENU)
+                    switch (kb.vkCode)
                     {
-                        _lAltPressed = false;                        
-                    }
-                    else if (kb.vkCode == VK.RMENU)
-                    {
-                        _rAltPressed = false;                        
+                        case VK.LMENU:
+                            _lAltPressed = false;
+                            break;
+
+                        case VK.RMENU:
+                            _rAltPressed = false;
+                            break;
+
+                        case VK.RSHIFT:
+                            _rShiftPressed = false;
+                            break;
                     }
                     break;
             }
@@ -80,7 +91,7 @@ namespace VirtualGameMode.Utilities
 
             if (Settings.Default.DisableAltTab && IsValidScopeForSetting(Settings.Default.DisableAltTabScope))
             {
-                if (kb.vkCode == VK.Tab && alt)
+                if (kb.vkCode == VK.TAB && alt)
                 {
                     Console.WriteLine("Alt-Tab caught");
                     return 1;
@@ -89,7 +100,7 @@ namespace VirtualGameMode.Utilities
 
             if (Settings.Default.DisableAltSpace && IsValidScopeForSetting(Settings.Default.DisableAltSpaceScope))
             {
-                if (kb.vkCode == VK.Space && alt)
+                if (kb.vkCode == VK.SPACE && alt)
                 {
                     Console.WriteLine("Alt-Space caught");
                     return 1;
@@ -101,6 +112,15 @@ namespace VirtualGameMode.Utilities
                 if (kb.vkCode == VK.LWIN || kb.vkCode == VK.RWIN)
                 {
                     Console.WriteLine("Windows key caught");
+                    return 1;
+                }
+            }
+
+            if (Settings.Default.GuardEscape && IsValidScopeForSetting(Settings.Default.GuardEscapeScope))
+            {
+                if (kb.vkCode == VK.ESCAPE && !_rShiftPressed)
+                {
+                    Console.WriteLine("Escape key caught");
                     return 1;
                 }
             }

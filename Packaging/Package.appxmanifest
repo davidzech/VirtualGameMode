@@ -11,7 +11,7 @@
   <Identity
     Name="3db134ef-eef6-4e0f-8ae6-956f37627fd1"
     Publisher="CN=david"
-    Version="1.1.0.0" />
+    Version="1.1.1.0" />
 
   <Properties>
     <DisplayName>VirtualGameMode</DisplayName>
